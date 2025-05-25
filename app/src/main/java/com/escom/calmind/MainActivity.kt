@@ -12,8 +12,10 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.escom.calmind.ui.composable.TestScreen
 import com.escom.calmind.ui.screen.LoginScreen
 import com.escom.calmind.ui.screen.SplashScreen
+import com.escom.calmind.ui.screen.TestScreen
 import com.escom.calmind.ui.screen.WelcomeScreen
 import com.escom.calmind.ui.theme.CalmindTheme
 import com.escom.calmind.utils.IS_FIRST_TIME
@@ -42,11 +44,12 @@ class MainActivity : ComponentActivity() {
                     NavHost(
                         modifier = Modifier.padding(it),
                         navController = navController,
-                        startDestination = SplashScreen
+                        startDestination = TestScreen
                     ) {
                         composable<SplashScreen> {  }
                         composable<WelcomeScreen> {  }
                         composable<LoginScreen> {  }
+                        composable<TestScreen> { TestScreen() }
                     }
                 }
             }

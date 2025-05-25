@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:test="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/orange_1"
@@ -8,9 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:orientation="vertical"
         android:padding="20dp">
+        <!--android:layout_marginTop="25dp"-->
 
         <TextView
             android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:fontFamily="@font/fredoka_bold"
             android:text="@string/test_header_1"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_small"/>
+            android:textSize="@dimen/text_size_small" />
 
         <TextView
             android:layout_width="match_parent"
@@ -26,7 +27,7 @@
             android:fontFamily="@font/fredoka_bold"
             android:text="@string/test_header_2"
             android:textColor="@color/dark_blue"
-            android:textSize="@dimen/text_size_large"/>
+            android:textSize="@dimen/text_size_large" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,6 +51,16 @@
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_xsmall" />
+
+                <!--<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/smile_beam_svgrepo_com"
+                    android:fontFamily="@font/fredoka_semi_bold"
+                    android:padding="5dp"
+                    android:text="@string/test_card_2"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/text_size_xsmall" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -79,7 +90,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:contentDescription="@null"
-                android:src="@color/peach_1" />
+                android:src="@drawable/test_img" />
         </LinearLayout>
 
 
@@ -99,10 +110,10 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_background"
             android:fontFamily="@font/fredoka_medium"
-            android:textSize="@dimen/text_size_xsmall"
             android:padding="16dp"
-            android:text="¿En la ultima semana como te haz sentido la mayor parte del tiempo?"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_xsmall"
+            test:text="¿En la ultima semana como te haz sentido la mayor parte del tiempo?" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,41 +126,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fredoka_medium"
-                android:text="Muy Bien"
                 android:textColor="@color/option1"
-                android:textSize="@dimen/text_size_xsmall" />
+                android:textSize="@dimen/text_size_xsmall"
+                test:text="Muy Bien" />
 
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fredoka_medium"
+                android:textColor="@color/option2"
                 android:textSize="@dimen/text_size_xsmall"
-                android:text="Bien"
-                android:textColor="@color/option2"/>
+                test:text="Bien" />
 
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fredoka_medium"
+                android:textColor="@color/option3"
                 android:textSize="@dimen/text_size_xsmall"
-                android:text="Neutral"
-                android:textColor="@color/option3"/>
+                test:text="Neutral" />
 
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fredoka_medium"
+                android:textColor="@color/option4"
                 android:textSize="@dimen/text_size_xsmall"
-                android:text="Triste"
-                android:textColor="@color/option4"/>
+                test:text="Triste" />
 
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fredoka_medium"
+                android:textColor="@color/option5"
                 android:textSize="@dimen/text_size_xsmall"
-                android:text="Enojado"
-                android:textColor="@color/option5"/>
+                test:text="Enojado" />
         </LinearLayout>
 
     </LinearLayout>
