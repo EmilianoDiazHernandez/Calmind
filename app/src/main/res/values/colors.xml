@@ -7,4 +7,23 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- MY COLORS -->
+
+    <!-- System -->
+    <color name="orange_1">#fffdcb6e</color>
+    <color name="orange_2">#fff2b23b</color>
+    <color name="peach_1">#FFff6464</color>
+    <color name="mint">#ff89d9a2</color>
+    <color name="gray">#ffe7e7e7</color>
+    <color name="dark_blue">#ff122e48</color>
+    <color name="blue">#ff305bab</color>
+
+
+    <!-- Test options -->
+    <color name="option1">#fffe9f4d</color>
+    <color name="option2">#ff067429</color>
+    <color name="option3">#fff2b23b</color>
+    <color name="option4">#ff305bab</color>
+    <color name="option5">#ffbd0a0a</color>
+
 </resources>

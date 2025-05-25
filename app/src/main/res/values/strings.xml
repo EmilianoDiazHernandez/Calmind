@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Calmind</string>
+    <string name="test_header_1">Permiteme</string>
+    <string name="test_header_2">CONOCERTE</string>
+    <string name="test_card_1">Formulario Inicial</string>
+    <string name="test_card_2">Sin miedo</string>
 </resources>
