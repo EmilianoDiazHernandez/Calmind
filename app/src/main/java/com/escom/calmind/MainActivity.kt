@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.navigation.compose.NavHost
@@ -17,8 +16,6 @@ import com.escom.calmind.ui.screen.SplashScreen
 import com.escom.calmind.ui.screen.WelcomeScreen
 import com.escom.calmind.ui.theme.CalmindTheme
 import com.escom.calmind.utils.IS_FIRST_TIME
-import com.escom.calmind.utils.dataStore
-import kotlinx.coroutines.flow.map
 
 class MainActivity : ComponentActivity() {
 
@@ -29,14 +26,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CalmindTheme {
-                /*val flow = dataStore.data.map { preferences ->
-                    preferences[isFirstTime] ?: true
-                }
-                LaunchedEffect(true) {
-                    flow.collect {
-
-                    }
-                }*/
                 val navController = rememberNavController()
                 Scaffold {
                     NavHost(
