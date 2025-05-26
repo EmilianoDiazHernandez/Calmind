@@ -12,6 +12,8 @@
     <!-- System -->
     <color name="orange_1">#fffdcb6e</color>
     <color name="orange_2">#fff2b23b</color>
+    <color name="orange_3">#ff9b4a08</color>
+    <color name="yellow_1">#fffff6b6</color>
     <color name="peach_1">#FFff6464</color>
     <color name="mint">#ff89d9a2</color>
     <color name="gray">#ffe7e7e7</color>
@@ -20,10 +22,10 @@
 
 
     <!-- Test options -->
-    <color name="option1">#fffe9f4d</color>
-    <color name="option2">#ff067429</color>
-    <color name="option3">#fff2b23b</color>
-    <color name="option4">#ff305bab</color>
-    <color name="option5">#ffbd0a0a</color>
+    <color name="option1">#FF4CAF50</color>
+    <color name="option2">#FF8BC34A</color>
+    <color name="option3">#FFFFC107</color>
+    <color name="option4">#FFFF9800</color>
+    <color name="option5">#FFFF5252</color>
 
 </resources>

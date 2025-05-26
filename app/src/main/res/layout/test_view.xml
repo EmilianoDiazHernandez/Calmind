@@ -10,8 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
-        <!--android:layout_marginTop="25dp"-->
+        android:paddingTop="20dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -19,7 +20,7 @@
             android:fontFamily="@font/fredoka_bold"
             android:text="@string/test_header_1"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_small" />
+            android:textSize="@dimen/text_size_small"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -27,16 +28,19 @@
             android:fontFamily="@font/fredoka_bold"
             android:text="@string/test_header_2"
             android:textColor="@color/dark_blue"
-            android:textSize="@dimen/text_size_large" />
+            android:textSize="@dimen/text_size_large"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="20dp"
+            android:gravity="center">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_background"
                 android:gravity="center"
@@ -52,16 +56,6 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_xsmall" />
 
-                <!--<TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/smile_beam_svgrepo_com"
-                    android:fontFamily="@font/fredoka_semi_bold"
-                    android:padding="5dp"
-                    android:text="@string/test_card_2"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/text_size_xsmall" />-->
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -71,7 +65,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:contentDescription="@null"
-                        android:src="@drawable/smile_beam_svgrepo_com" />
+                        android:src="@drawable/ic_smile_beam_svgrepo_com" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -87,12 +81,11 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="120dp"
                 android:layout_weight="1"
                 android:contentDescription="@null"
-                android:src="@drawable/test_img" />
+                android:src="@drawable/test_img"/>
         </LinearLayout>
-
 
     </LinearLayout>
 
@@ -113,7 +106,7 @@
             android:padding="16dp"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_xsmall"
-            test:text="¿En la ultima semana como te haz sentido la mayor parte del tiempo?" />
+            test:text="¿Con qué frecuencia ha estado afectado por algo que ha ocurrido inesperadamente?" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -128,7 +121,7 @@
                 android:fontFamily="@font/fredoka_medium"
                 android:textColor="@color/option1"
                 android:textSize="@dimen/text_size_xsmall"
-                test:text="Muy Bien" />
+                test:text="Nunca " />
 
             <RadioButton
                 android:layout_width="match_parent"
@@ -136,7 +129,7 @@
                 android:fontFamily="@font/fredoka_medium"
                 android:textColor="@color/option2"
                 android:textSize="@dimen/text_size_xsmall"
-                test:text="Bien" />
+                test:text="Casi nunca" />
 
             <RadioButton
                 android:layout_width="match_parent"
@@ -144,7 +137,7 @@
                 android:fontFamily="@font/fredoka_medium"
                 android:textColor="@color/option3"
                 android:textSize="@dimen/text_size_xsmall"
-                test:text="Neutral" />
+                test:text="De vez en cuando" />
 
             <RadioButton
                 android:layout_width="match_parent"
@@ -152,7 +145,7 @@
                 android:fontFamily="@font/fredoka_medium"
                 android:textColor="@color/option4"
                 android:textSize="@dimen/text_size_xsmall"
-                test:text="Triste" />
+                test:text="A menudo" />
 
             <RadioButton
                 android:layout_width="match_parent"
@@ -160,7 +153,7 @@
                 android:fontFamily="@font/fredoka_medium"
                 android:textColor="@color/option5"
                 android:textSize="@dimen/text_size_xsmall"
-                test:text="Enojado" />
+                test:text="Muy a menudo" />
         </LinearLayout>
 
     </LinearLayout>
