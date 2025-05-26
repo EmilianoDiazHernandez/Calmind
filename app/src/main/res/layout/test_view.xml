@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingLeft="20dp"
         android:paddingTop="20dp"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp">
+        android:paddingRight="20dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:fontFamily="@font/fredoka_bold"
             android:text="@string/test_header_1"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_small"/>
+            android:textSize="@dimen/text_size_small" />
 
         <TextView
             android:layout_width="match_parent"
@@ -28,15 +28,15 @@
             android:fontFamily="@font/fredoka_bold"
             android:text="@string/test_header_2"
             android:textColor="@color/dark_blue"
-            android:textSize="@dimen/text_size_large"/>
+            android:textSize="@dimen/text_size_large" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:paddingTop="20dp"
-            android:gravity="center">
+            android:paddingRight="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                 android:layout_height="120dp"
                 android:layout_weight="1"
                 android:contentDescription="@null"
-                android:src="@drawable/test_img"/>
+                android:src="@drawable/test_img" />
         </LinearLayout>
 
     </LinearLayout>
@@ -98,6 +98,7 @@
         android:padding="20dp">
 
         <TextView
+            android:id="@+id/Question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -115,45 +116,52 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <RadioButton
+            <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/fredoka_medium"
-                android:textColor="@color/option1"
-                android:textSize="@dimen/text_size_xsmall"
-                test:text="Nunca " />
+                android:orientation="vertical">
 
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/fredoka_medium"
-                android:textColor="@color/option2"
-                android:textSize="@dimen/text_size_xsmall"
-                test:text="Casi nunca" />
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fredoka_medium"
+                    android:text="@string/option_1"
+                    android:textColor="@color/option1"
+                    android:textSize="@dimen/text_size_xsmall" />
 
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/fredoka_medium"
-                android:textColor="@color/option3"
-                android:textSize="@dimen/text_size_xsmall"
-                test:text="De vez en cuando" />
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fredoka_medium"
+                    android:text="@string/option_2"
+                    android:textColor="@color/option2"
+                    android:textSize="@dimen/text_size_xsmall" />
 
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/fredoka_medium"
-                android:textColor="@color/option4"
-                android:textSize="@dimen/text_size_xsmall"
-                test:text="A menudo" />
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fredoka_medium"
+                    android:text="@string/option_3"
+                    android:textColor="@color/option3"
+                    android:textSize="@dimen/text_size_xsmall" />
 
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/fredoka_medium"
-                android:textColor="@color/option5"
-                android:textSize="@dimen/text_size_xsmall"
-                test:text="Muy a menudo" />
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fredoka_medium"
+                    android:text="@string/option_4"
+                    android:textColor="@color/option4"
+                    android:textSize="@dimen/text_size_xsmall" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fredoka_medium"
+                    android:text="@string/option_5"
+                    android:textColor="@color/option5"
+                    android:textSize="@dimen/text_size_xsmall" />
+            </RadioGroup>
         </LinearLayout>
 
     </LinearLayout>
