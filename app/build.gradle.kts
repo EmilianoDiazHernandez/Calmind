@@ -3,6 +3,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    //id("com.google.devtools.ksp") version "1.6.21-1.0.6"
+    id("com.google.dagger.hilt.android")
+    kotlin("kapt")
+    //id("com.google.devtools.ksp")
 }
 
 android {
@@ -51,6 +55,12 @@ dependencies {
 
     /*Serialization*/
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+    implementation(libs.androidx.hilt.navigation.fragment)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

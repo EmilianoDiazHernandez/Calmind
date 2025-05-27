@@ -9,6 +9,9 @@ import com.escom.calmind.repository.StressQuestionsRepository;
 import java.util.Arrays;
 import java.util.List;
 
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class StressQuestionsViewModel extends ViewModel {
 
     private final List<String> questions;

@@ -2,6 +2,9 @@ package com.escom.calmind.repository.impl;
 
 import com.escom.calmind.repository.StressQuestionsRepository;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class StressQuestionsRepositoryImpl implements StressQuestionsRepository {
 
     @Override

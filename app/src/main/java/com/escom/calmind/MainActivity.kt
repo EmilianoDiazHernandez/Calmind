@@ -20,8 +20,10 @@ import com.escom.calmind.ui.screen.WelcomeScreen
 import com.escom.calmind.ui.theme.CalmindTheme
 import com.escom.calmind.utils.IS_FIRST_TIME
 import com.escom.calmind.utils.dataStore
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.map
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val isFirstTime = booleanPreferencesKey(IS_FIRST_TIME)
