@@ -61,5 +61,7 @@
 
     <!-- Toast's -->
     <string name="invalid_answer">Elija una opción</string>
-
+    <string name="congratulations">¡Felicidades!</string>
+    <string name="message_successfully">Haz completado el cuestionario</string>
+    <string name="go">¡Sigamos!</string>
 </resources>

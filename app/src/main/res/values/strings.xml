@@ -60,4 +60,7 @@
 
     <!-- Toast's -->
     <string name="invalid_answer">Choose an option</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="message_successfully">You have finished the test successfully</string>
+    <string name="go">Let\'s Go!</string>
 </resources>
