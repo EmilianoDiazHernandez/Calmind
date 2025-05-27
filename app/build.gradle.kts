@@ -39,6 +39,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
 }
 
@@ -55,6 +56,8 @@ dependencies {
 
     /*Dagger hilt*/
     implementation(libs.hilt.android)
+    implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.ui.viewbinding)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.fragment)
     implementation(libs.androidx.hilt.navigation.compose)

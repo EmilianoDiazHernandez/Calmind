@@ -20,7 +20,6 @@
         <item>High School</item>
     </array>
     <string name="how_older_you">How older you?</string>
-    <string name="app_name" translatable="false">Calmind</string>
 
     <!-- Stress Test -->
     <string name="test_header_1">Let me</string>

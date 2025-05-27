@@ -13,9 +13,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.escom.calmind.ui.composable.SplashScreen
+import com.escom.calmind.ui.composable.TestScreen
 import com.escom.calmind.ui.composable.welcome.WelcomeScreen
 import com.escom.calmind.ui.screen.LoginScreen
 import com.escom.calmind.ui.screen.SplashScreen
+import com.escom.calmind.ui.screen.TestScreen
 import com.escom.calmind.ui.screen.WelcomeScreen
 import com.escom.calmind.ui.theme.CalmindTheme
 import com.escom.calmind.ui.viewmodel.WelcomeViewModel
@@ -62,10 +64,15 @@ class MainActivity : ComponentActivity() {
                                 onAgeChange = welcomeViewModel::age::set,
                                 onClickStartButton = {
                                     welcomeViewModel.onStart()
-                                    /*TODO: Navigate to test screen*/
+                                    navController.navigate(TestScreen) {
+                                        popUpTo<WelcomeScreen> {
+                                            inclusive = true
+                                        }
+                                    }
                                 }
                             )
                         }
+                        composable<TestScreen> { TestScreen() }
                         composable<LoginScreen> {
                             Text("Login")
                         }
