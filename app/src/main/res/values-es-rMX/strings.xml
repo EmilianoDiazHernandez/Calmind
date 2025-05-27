@@ -21,4 +21,45 @@
         <item>High School</item>
     </array>
     <string name="how_older_you">¿Cuántos años tines?</string>
+
+    <!-- Stress Test -->
+    <string name="test_header_1">Permiteme</string>
+    <string name="test_header_2">CONOCERTE</string>
+    <string name="test_card_1">Formulario Inicia</string>
+    <string name="test_card_2">Sin miedo</string>
+    <string name="option_1">Nunca</string>
+    <string name="option_2">Casi nunca</string>
+    <string name="option_3">De vez en cuando</string>
+    <string name="option_4">A menudo</string>
+    <string name="option_5">Muy a menudo</string>
+    <string name="btn_confirm">Confirmar</string>
+
+    <!-- Gratitude Journal -->
+    <string name="journal_header_1">DIARIO</string>
+    <string name="journal_header_2">de</string>
+    <string name="journal_header_3">GRATITUD</string>
+    <string name="journal_main_1">Cuénamte como te sentiste hoy</string>
+    <string name="journal_content_hint">Es tu espacio, escríbelo como quieras</string>
+    <string name="journal_footer">Gana estrellitas</string>
+    <string name="journal_btn_save">Guardar</string>
+
+    <!-- Stress Questions -->
+    <string name="stress_question01">¿Con qué frecuencia ha estado afectado por algo que ha ocurrido inesperadamente?</string>
+    <string name="stress_question02">¿Con qué frecuencia se ha sentido incapaz de controlar las cosas importantes en su vida?</string>
+    <string name="stress_question03">¿Con qué frecuencia se ha sentido nervioso o estresado?</string>
+    <string name="stress_question04">¿Con qué frecuencia ha manejado con éxito los pequeños problemas irritantes de la vida?</string>
+    <string name="stress_question05">¿Con qué frecuencia ha sentido que ha afrontado efectivamente los cambios importantes que han estado ocurriendo en su vida?</string>
+    <string name="stress_question06">¿Con qué frecuencia ha estado seguro sobre su capacidad para manejar sus problemas personales?</string>
+    <string name="stress_question07">¿Con qué frecuencia ha sentido que las cosas le van bien?</string>
+    <string name="stress_question08">¿Con qué frecuencia ha sentido que no podía afrontar todas las cosas que tenía que hacer?</string>
+    <string name="stress_question09">¿Con qué frecuencia ha podido controlar las dificultades de su vida?</string>
+    <string name="stress_question10">¿Con que frecuencia se ha sentido que tenia todo bajo control?</string>
+    <string name="stress_question11">¿Con qué frecuencia ha estado enfadado porque  las cosas que le han ocurrido estaban fuera de su control?</string>
+    <string name="stress_question12">¿Con qué frecuencia ha  pensado sobre las cosas que le quedan  por hacer?</string>
+    <string name="stress_question13">¿Con qué frecuencia ha podido controlar la forma  de  pasar  el tiempo?</string>
+    <string name="stress_question14">¿Con qué frecuencia ha sentido que las dificultades se acumulan tanto que no puede superarlas?</string>
+
+    <!-- Toast's -->
+    <string name="invalid_answer">Elija una opción</string>
+
 </resources>
