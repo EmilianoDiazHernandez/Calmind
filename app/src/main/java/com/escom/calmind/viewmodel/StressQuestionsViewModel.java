@@ -9,6 +9,8 @@ import com.escom.calmind.repository.StressQuestionsRepository;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
@@ -20,6 +22,7 @@ public class StressQuestionsViewModel extends ViewModel {
     private final MutableLiveData<String> currentQuestion = new MutableLiveData<>();
     private final MutableLiveData<Boolean> finished = new MutableLiveData<>(false);
 
+    @Inject
     public StressQuestionsViewModel(StressQuestionsRepository repository) {
         this.questions = Arrays.asList(repository.getAll());
         if (!questions.isEmpty()) {

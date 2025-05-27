@@ -2,11 +2,12 @@ package com.escom.calmind.repository.impl;
 
 import com.escom.calmind.repository.StressQuestionsRepository;
 
-import javax.inject.Singleton;
+import javax.inject.Inject;
 
-@Singleton
 public class StressQuestionsRepositoryImpl implements StressQuestionsRepository {
 
+    @Inject
+    public StressQuestionsRepositoryImpl() {}
     @Override
     public String[] getAll() {
         return new String[]{
