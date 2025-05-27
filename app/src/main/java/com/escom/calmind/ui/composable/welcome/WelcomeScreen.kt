@@ -37,7 +37,19 @@ import com.escom.calmind.ui.shape.semiCircleShape
 import com.escom.calmind.ui.theme.CalmindTheme
 
 @Composable
-fun WelcomeScreen(modifier: Modifier = Modifier) {
+fun WelcomeScreen(
+    modifier: Modifier = Modifier,
+    name: String,
+    onNameChange: (String) -> Unit,
+    selectedHobbies: List<String>,
+    onCheckHobby: (String) -> Unit,
+    onUncheckHobby: (String) -> Unit,
+    schooling: String,
+    onChangeSchooling: (String) -> Unit,
+    age: String,
+    onAgeChange: (String) -> Unit,
+    onClickStartButton: () -> Unit
+) {
     Surface {
         Column(
             modifier = modifier
@@ -62,9 +74,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier) {
                     stiffness = Spring.StiffnessLow
                 )
             )
-            AnimatedVisibility(isInFirstPage) {
-                TopView()
-            }
+            AnimatedVisibility(isInFirstPage) { TopView() }
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -75,7 +85,19 @@ fun WelcomeScreen(modifier: Modifier = Modifier) {
                     state = pagerState,
                     modifier = Modifier.fillMaxSize()
                 ) { page ->
-                    if (page == 0) FirstPage() else SecondPage()
+                    if (page == 0) FirstPage() else SecondPage(
+                        modifier,
+                        name,
+                        onNameChange,
+                        selectedHobbies,
+                        onCheckHobby,
+                        onUncheckHobby,
+                        schooling,
+                        onChangeSchooling,
+                        age,
+                        onAgeChange,
+                        onClickStartButton
+                    )
                 }
                 Row(
                     Modifier
@@ -86,8 +108,10 @@ fun WelcomeScreen(modifier: Modifier = Modifier) {
                     horizontalArrangement = Arrangement.Center
                 ) {
                     repeat(pagerState.pageCount) { iteration ->
-                        val color =
-                            if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
+                        val color = if (pagerState.currentPage == iteration)
+                            Color.DarkGray
+                        else
+                            Color.LightGray
                         Box(
                             modifier = Modifier
                                 .padding(2.dp)
@@ -107,6 +131,17 @@ fun WelcomeScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun WelcomeScreenPreview() {
     CalmindTheme {
-        WelcomeScreen()
+        WelcomeScreen(
+            name = "Diego",
+            onNameChange = {},
+            selectedHobbies = listOf("Drawing, Sports", "Swimming"),
+            onCheckHobby = {},
+            onUncheckHobby = {},
+            schooling = "Secondary School",
+            onChangeSchooling = {},
+            age = "8",
+            onAgeChange = {},
+            onClickStartButton = {}
+        )
     }
 }

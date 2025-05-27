@@ -14,4 +14,11 @@
         <item>Dibujar</item>
         <item>Natación</item>
     </array>
+    <string name="schooling">Escolaridad</string>
+    <array name="schooling_array">
+        <item>Elementary School</item>
+        <item>Secondary School</item>
+        <item>High School</item>
+    </array>
+    <string name="how_older_you">¿Cuántos años tines?</string>
 </resources>

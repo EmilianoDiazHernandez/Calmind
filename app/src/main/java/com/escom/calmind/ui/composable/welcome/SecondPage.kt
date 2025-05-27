@@ -1,5 +1,6 @@
 package com.escom.calmind.ui.composable.welcome
 
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,40 +19,51 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escom.calmind.R
+import com.escom.calmind.ui.theme.CalmindTheme
 
 @Composable
-fun SecondPage(modifier: Modifier = Modifier) {
+fun SecondPage(
+    modifier: Modifier = Modifier,
+    name: String,
+    onNameChange: (String) -> Unit,
+    selectedHobbies: List<String>,
+    onCheckHobby: (String) -> Unit,
+    onUncheckHobby: (String) -> Unit,
+    schooling: String,
+    onChangeSchooling: (String) -> Unit,
+    age: String,
+    onAgeChange: (String) -> Unit,
+    onClickStartButton: () -> Unit
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
+            .focusable()
             .padding(16.dp)
     ) {
-        val hobbies = stringArrayResource(R.array.hobbies)
-        val selectedHobbies = remember {
-            mutableStateListOf<String>()
-        }
+        val ageError = age.isNotBlank() && age.toIntOrNull()?.let { it <= 0 } ?: true
         val focusManager = LocalFocusManager.current
-        var name by remember { mutableStateOf(String()) }
+        //val keyboardController = LocalSoftwareKeyboardController.current
         OutlinedTextField(
-            value = name, onValueChange = { name = it },
+            value = name, onValueChange = onNameChange,
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedLabelColor = MaterialTheme.colorScheme.onSurface
             ),
@@ -63,11 +75,33 @@ fun SecondPage(modifier: Modifier = Modifier) {
             },
             singleLine = true, modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(
-                imeAction = androidx.compose.ui.text.input.ImeAction.Done,
+                imeAction = ImeAction.Next,
                 capitalization = KeyboardCapitalization.Sentences,
                 keyboardType = KeyboardType.Text
             ),
-            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
+            keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) })
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        OutlinedTextField(
+            value = age, onValueChange = onAgeChange,
+            isError = ageError,
+            colors = OutlinedTextFieldDefaults.colors(
+                unfocusedLabelColor = MaterialTheme.colorScheme.onSurface
+            ),
+            label = {
+                Text(
+                    stringResource(R.string.how_older_you),
+                    style = MaterialTheme.typography.titleMedium
+                )
+            },
+            singleLine = true, modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Number
+            ),
+            keyboardActions = KeyboardActions(onDone = {
+                focusManager.clearFocus()
+            })
         )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
@@ -80,41 +114,89 @@ fun SecondPage(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
                 .selectableGroup()
         ) {
+            val hobbies = stringArrayResource(R.array.hobbies)
             hobbies.forEach {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
+                        .fillMaxWidth()
                         .selectable(
                             selected = selectedHobbies.contains(it),
                             onClick = {
                                 if (selectedHobbies.contains(it))
-                                    selectedHobbies.remove(it)
+                                    onUncheckHobby(it)
+                                //onCheckHobby(it)
+                                //selectedHobbies.remove(it)
                                 else
-                                    selectedHobbies.add(it)
+                                    onCheckHobby(it)
+                                //selectedHobbies.add(it)
                             },
-                            role = Role.RadioButton
+                            role = Role.Checkbox
                         )
                 ) {
                     Checkbox(
                         checked = selectedHobbies.contains(it),
-                        onCheckedChange = { checked ->
-                            if (checked) selectedHobbies.add(it)
-                            else selectedHobbies.remove(it)
-                        }
+                        onCheckedChange = null
                     )
                     Text(it, style = MaterialTheme.typography.bodyMedium)
                 }
             }
-            Spacer(modifier = Modifier.height(24.dp))
-            Button(
-                onClick = {},
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            ) {
-                Text(
-                    stringResource(R.string.get_started),
-                    style = MaterialTheme.typography.bodyMedium
-                )
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                stringResource(R.string.schooling),
+                style = MaterialTheme.typography.titleMedium
+            )
+            val schoolingArray = stringArrayResource(R.array.schooling_array)
+            schoolingArray.forEach {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .selectable(
+                            selected = (it == schooling),
+                            onClick = { onChangeSchooling(it) },
+                            role = Role.RadioButton
+                        )
+                ) {
+                    RadioButton(selected = (it == schooling), onClick = null)
+                    Text(it, style = MaterialTheme.typography.bodyMedium)
+                }
             }
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+        Button(
+            onClick = onClickStartButton,
+            enabled = name.isNotBlank() && selectedHobbies.isNotEmpty()
+                    && schooling.isNotEmpty() && age.isNotBlank() && !ageError,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Text(
+                stringResource(R.string.get_started),
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+    }
+}
+
+
+@Preview(device = "id:Nexus 5")
+@Composable
+private fun SecondPagePreview() {
+    CalmindTheme {
+        Surface {
+            SecondPage(
+                modifier = Modifier,
+                name = "Diego",
+                onNameChange = {},
+                selectedHobbies = listOf("Drawing", "Sports", "Swimming"),
+                onCheckHobby = {},
+                onUncheckHobby = {},
+                schooling = "Secondary School",
+                onChangeSchooling = {},
+                age = "8",
+                onAgeChange = {},
+                onClickStartButton = {}
+            )
         }
     }
 }

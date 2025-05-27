@@ -13,4 +13,11 @@
         <item>Drawing</item>
         <item>Swimming</item>
     </array>
+    <string name="schooling">Schooling</string>
+    <array name="schooling_array">
+        <item>Elementary School</item>
+        <item>Secondary School</item>
+        <item>High School</item>
+    </array>
+    <string name="how_older_you">How older you?</string>
 </resources>
