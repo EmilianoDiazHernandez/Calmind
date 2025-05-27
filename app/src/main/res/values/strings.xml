@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">Calmind</string>
+    <string name="app_name" translatable="false">Calmind</string>
+    <string name="welcome">Welcome</string>
+    <string name="motivating_message">Your well-being is important; we are here for you.</string>
+    <string name="get_started">Let\'s get started</string>
+    <string name="privacy_notice">After beginning we need to take a test.\nData we collect: By completing the initial questionnaire, we collect basic info (age, education, interests) and responses about your emotional well-being to personalize your experience and suggest relevant activities.</string>
+    <string name="what_are_your_hobbies">What are your hobbies?</string>
+    <string name="what_is_your_name">What is your name?</string>
+    <array name="hobbies">
+        <item>Sports</item>
+        <item>Reading</item>
+        <item>Music</item>
+        <item>Drawing</item>
+        <item>Swimming</item>
+    </array>
 </resources>

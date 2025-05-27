@@ -11,7 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.escom.calmind.composable.SplashScreen
+import com.escom.calmind.ui.composable.SplashScreen
+import com.escom.calmind.ui.composable.welcome.WelcomeScreen
 import com.escom.calmind.ui.screen.LoginScreen
 import com.escom.calmind.ui.screen.SplashScreen
 import com.escom.calmind.ui.screen.WelcomeScreen
@@ -32,12 +33,23 @@ class MainActivity : ComponentActivity() {
                         startDestination = SplashScreen
                     ) {
                         composable<SplashScreen> {
-                            SplashScreen()
+                            SplashScreen { isFirstTime ->
+                                navController.navigate(
+                                    if (isFirstTime)
+                                        WelcomeScreen
+                                    else
+                                        LoginScreen
+                                ) {
+                                    popUpTo(SplashScreen) { inclusive = true }
+                                }
+                            }
                         }
                         composable<WelcomeScreen> {
-                            Text("Welcome")
+                            WelcomeScreen()
                         }
-                        composable<LoginScreen> {  }
+                        composable<LoginScreen> {
+                            Text("Login")
+                        }
                     }
                 }
             }

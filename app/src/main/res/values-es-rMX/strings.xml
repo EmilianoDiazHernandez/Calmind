@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Calmind</string>
+    <string name="welcome">Bienvenido</string>
+    <string name="motivating_message">Tu bienestar es importante, estamos aquí para ti</string>
+    <string name="get_started">Empecemos</string>
+    <string name="privacy_notice">Antes de empezar, tienes que responder un cuestionario.\nDatos que recopilamos: Al responder el cuestionario inicial, recopilamos información básica (edad, escolaridad, intereses) y respuestas sobre tu bienestar emocional para personalizar tu experiencia y sugerir actividades útiles.</string>
+    <string name="what_are_your_hobbies">¿Cuáles son tus hobbies?</string>
+    <string name="what_is_your_name">¿Cómo te llamas?</string>
+    <array name="hobbies">
+        <item>Deporte</item>
+        <item>Lectura</item>
+        <item>Musica</item>
+        <item>Dibujar</item>
+        <item>Natación</item>
+    </array>
+</resources>
