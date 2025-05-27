@@ -21,15 +21,19 @@ public class StressQuestionsViewModel extends ViewModel {
 
     private final MutableLiveData<String> currentQuestion = new MutableLiveData<>();
     private final MutableLiveData<Boolean> finished = new MutableLiveData<>(false);
+    private Integer response = 0; // 0-10 Bajo estres | 11-25 Esrtes moderado | 26-30 Alto estres
 
     @Inject
     public StressQuestionsViewModel(StressQuestionsRepository repository) {
         this.questions = Arrays.asList(repository.getAll());
-        if (!questions.isEmpty()) {
+        if (!questions.isEmpty())
             currentQuestion.setValue(questions.get(0));
-        } else {
+        else
             finished.setValue(true);
-        }
+    }
+
+    public Integer getResponse() {
+        return response;
     }
 
     public LiveData<String> getCurrentQuestion() {
@@ -40,12 +44,13 @@ public class StressQuestionsViewModel extends ViewModel {
         return finished;
     }
 
-    public void onQuestionAnswered() {
+    public void onQuestionAnswered(int answer) {
+        response += answer;
         currentIndex++;
-        if (currentIndex < questions.size()) {
+
+        if (currentIndex < questions.size())
             currentQuestion.setValue(questions.get(currentIndex));
-        } else {
+        else
             finished.setValue(true);
-        }
     }
 }

@@ -71,12 +71,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fredoka_bold"
             android:text="@string/journal_header_3"
             android:textAlignment="center"
             android:textColor="@color/peach_1"
-            android:fontFamily="@font/fredoka_bold"
-            android:textSize="@dimen/text_size_large"
-            />
+            android:textSize="@dimen/text_size_large" />
 
     </LinearLayout>
 

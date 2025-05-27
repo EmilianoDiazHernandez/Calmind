@@ -98,15 +98,15 @@
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/Question"
+            android:id="@+id/question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_background"
-            android:fontFamily="@font/fredoka_medium"
+            android:fontFamily="@font/fredoka_regular"
             android:padding="16dp"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_xsmall"
+            android:textSize="@dimen/text_size_small"
             test:text="¿Con qué frecuencia ha estado afectado por algo que ha ocurrido inesperadamente?" />
 
         <LinearLayout
@@ -128,7 +128,7 @@
                     android:fontFamily="@font/fredoka_medium"
                     android:text="@string/option_1"
                     android:textColor="@color/option1"
-                    android:textSize="@dimen/text_size_xsmall" />
+                    android:textSize="@dimen/text_size_small" />
 
                 <RadioButton
                     android:layout_width="match_parent"
@@ -136,7 +136,7 @@
                     android:fontFamily="@font/fredoka_medium"
                     android:text="@string/option_2"
                     android:textColor="@color/option2"
-                    android:textSize="@dimen/text_size_xsmall" />
+                    android:textSize="@dimen/text_size_small" />
 
                 <RadioButton
                     android:layout_width="match_parent"
@@ -144,7 +144,7 @@
                     android:fontFamily="@font/fredoka_medium"
                     android:text="@string/option_3"
                     android:textColor="@color/option3"
-                    android:textSize="@dimen/text_size_xsmall" />
+                    android:textSize="@dimen/text_size_small" />
 
                 <RadioButton
                     android:layout_width="match_parent"
@@ -152,7 +152,7 @@
                     android:fontFamily="@font/fredoka_medium"
                     android:text="@string/option_4"
                     android:textColor="@color/option4"
-                    android:textSize="@dimen/text_size_xsmall" />
+                    android:textSize="@dimen/text_size_small" />
 
                 <RadioButton
                     android:layout_width="match_parent"
@@ -160,9 +160,23 @@
                     android:fontFamily="@font/fredoka_medium"
                     android:text="@string/option_5"
                     android:textColor="@color/option5"
-                    android:textSize="@dimen/text_size_xsmall" />
+                    android:textSize="@dimen/text_size_small" />
             </RadioGroup>
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/style_btn_1"
+            android:fontFamily="@font/fredoka_medium"
+            android:text="@string/btn_confirm"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_small" />
 
     </LinearLayout>
 

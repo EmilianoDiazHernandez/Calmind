@@ -1,29 +1,39 @@
 package com.escom.calmind.repository.impl;
 
+import android.content.Context;
+
+import com.escom.calmind.R;
 import com.escom.calmind.repository.StressQuestionsRepository;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.qualifiers.ApplicationContext;
+
 public class StressQuestionsRepositoryImpl implements StressQuestionsRepository {
 
+    private final Context context;
+
     @Inject
-    public StressQuestionsRepositoryImpl() {}
+    public StressQuestionsRepositoryImpl(@ApplicationContext Context context) {
+        this.context = context;
+    }
+
     @Override
     public String[] getAll() {
         return new String[]{
-                "¿Con qué frecuencia ha estado afectado por algo que ha ocurrido inesperadamente?",
-                "¿Con qué frecuencia se ha sentido incapaz de controlar las cosas importantes en su vida?",
-                "¿Con qué frecuencia se ha sentido nervioso o estresado?",
-                "¿Con qué frecuencia ha manejado con éxito los pequeños problemas irritantes de la vida?",
-                "¿Con qué frecuencia ha sentido que ha afrontado efectivamente los cambios importantes que han estado ocurriendo en su vida?",
-                "¿Con qué frecuencia ha estado seguro sobre su capacidad para manejar sus problemas personales?",
-                "¿Con qué frecuencia ha sentido que las cosas le van bien?",
-                "¿Con qué frecuencia ha sentido que no podía afrontar todas las cosas que tenía que hacer?",
-                "¿Con qué frecuencia ha podido controlar las dificultades de su vida?",
-                "¿Con que frecuencia se ha sentido que tenia todo bajo control?",
-                "¿Con qué frecuencia ha estado enfadado porque  las cosas que le han ocurrido estaban fuera de su control?",
-                "¿Con qué frecuencia ha  pensado sobre las cosas que le quedan  por hacer?",
-                "¿Con qué frecuencia ha podido controlar la forma  de  pasar  el tiempo?",
-                "¿Con qué frecuencia ha sentido que las dificultades se acumulan tanto que no puede superarlas?"};
+                context.getString(R.string.stress_question01),
+                context.getString(R.string.stress_question02),
+                context.getString(R.string.stress_question03),
+                context.getString(R.string.stress_question04),
+                context.getString(R.string.stress_question05),
+                context.getString(R.string.stress_question06),
+                context.getString(R.string.stress_question07),
+                context.getString(R.string.stress_question08),
+                context.getString(R.string.stress_question09),
+                context.getString(R.string.stress_question10),
+                context.getString(R.string.stress_question11),
+                context.getString(R.string.stress_question12),
+                context.getString(R.string.stress_question13),
+                context.getString(R.string.stress_question14)};
     }
 }

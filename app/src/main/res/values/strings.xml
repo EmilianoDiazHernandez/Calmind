@@ -1,24 +1,43 @@
 <resources>
-    <string name="app_name">Calmind</string>
+    <string name="app_name" translatable="false">Calmind</string>
 
-
-    <!-- Streess Test -->
-    <string name="test_header_1">Permiteme</string>
-    <string name="test_header_2">CONOCERTE</string>
-    <string name="test_card_1">Formulario Inicial</string>
-    <string name="test_card_2">Sin miedo</string>
-    <string name="option_1">Nunca</string>
-    <string name="option_2">Casi nunca</string>
-    <string name="option_3">De vez en cuando</string>
-    <string name="option_4">A menudo</string>
-    <string name="option_5">Muy a menudo</string>
+    <!-- Stress Test -->
+    <string name="test_header_1">Let me</string>
+    <string name="test_header_2">GET TO KNOW YOU</string>
+    <string name="test_card_1">Initial Form</string>
+    <string name="test_card_2">Fearless</string>
+    <string name="option_1">Never</string>
+    <string name="option_2">Almost never</string>
+    <string name="option_3">Sometimes</string>
+    <string name="option_4">Often</string>
+    <string name="option_5">Very often</string>
+    <string name="btn_confirm">Confirm</string>
 
     <!-- Gratitude Journal -->
-    <string name="journal_header_1">DIARIO</string>
-    <string name="journal_header_2">de</string>
-    <string name="journal_header_3">GRATITUD</string>
-    <string name="journal_main_1">Cuénamte como te\nsentiste hoy</string>
-    <string name="journal_content_hint">Es tu espacio, escríbelo como quieras</string>
-    <string name="journal_footer">Gana estrellitas</string>
-    <string name="journal_btn_save">Guardar</string>
+    <string name="journal_header_1">JOURNAL</string>
+    <string name="journal_header_2"> </string> <!--not needed in English-->
+    <string name="journal_header_3">GRATITUDE</string>
+    <string name="journal_main_1">Tell me how you felt today</string>
+    <string name="journal_content_hint">This is your space, write however you want</string>
+    <string name="journal_footer">Earn stars</string>
+    <string name="journal_btn_save">Save</string>
+
+    <!-- Stress Questions -->
+    <string name="stress_question01">How often have you been upset because something happened unexpectedly?</string>
+    <string name="stress_question02">How often have you felt unable to control the important things in your life?</string>
+    <string name="stress_question03">How often have you felt nervous or stressed?</string>
+    <string name="stress_question04">How often have you successfully dealt with irritating life hassles?</string>
+    <string name="stress_question05">How often have you felt that you were effectively coping with important changes happening in your life?</string>
+    <string name="stress_question06">How often have you felt confident about your ability to handle your personal problems?</string>
+    <string name="stress_question07">How often have you felt that things were going your way?</string>
+    <string name="stress_question08">How often have you felt that you couldn\'t cope with all the things you had to do?</string>
+    <string name="stress_question09">How often have you been able to control the difficulties in your life?</string>
+    <string name="stress_question10">How often have you felt that you had everything under control?</string>
+    <string name="stress_question11">How often have you been angry because things that happened were outside of your control?</string>
+    <string name="stress_question12">How often have you found yourself thinking about all the things you still have to do?</string>
+    <string name="stress_question13">How often have you been able to control how you spend your time?</string>
+    <string name="stress_question14">How often have you felt that difficulties were piling up so high that you couldn’t overcome them?</string>
+
+    <!-- Toast's -->
+    <string name="invalid_answer">Choose an option</string>
 </resources>
