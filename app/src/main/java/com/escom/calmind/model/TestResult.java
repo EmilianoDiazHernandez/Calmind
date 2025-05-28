@@ -3,16 +3,16 @@ package com.escom.calmind.model;
 public class TestResult {
 
     private StressResult stressResult;
-    private AttachmentResult attachmentResult;
+    private ResilienceResult resilienceResult;
     private TraumaResult traumaResult;
 
     public TestResult(
             StressResult stressResult,
-            AttachmentResult attachmentResult,
+            ResilienceResult resilienceResult,
             TraumaResult traumaResult
     ) {
         this.stressResult = stressResult;
-        this.attachmentResult = attachmentResult;
+        this.resilienceResult = resilienceResult;
         this.traumaResult = traumaResult;
     }
 
@@ -25,12 +25,12 @@ public class TestResult {
         this.stressResult = stressResult;
     }
 
-    public AttachmentResult getAttachmentResult() {
-        return attachmentResult;
+    public ResilienceResult getAttachmentResult() {
+        return resilienceResult;
     }
 
-    public void setAttachmentResult(AttachmentResult attachmentResult) {
-        this.attachmentResult = attachmentResult;
+    public void setAttachmentResult(ResilienceResult resilienceResult) {
+        this.resilienceResult = resilienceResult;
     }
 
     public TraumaResult getTraumaResult() {

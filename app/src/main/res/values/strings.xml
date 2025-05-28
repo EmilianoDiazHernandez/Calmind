@@ -42,21 +42,34 @@
     <string name="journal_footer">Earn stars</string>
     <string name="journal_btn_save">Save</string>
 
-    <!-- Stress Questions -->
-    <string name="stress_question01">How often have you been upset because something happened unexpectedly?</string>
-    <string name="stress_question02">How often have you felt unable to control the important things in your life?</string>
-    <string name="stress_question03">How often have you felt nervous or stressed?</string>
-    <string name="stress_question04">How often have you successfully dealt with irritating life hassles?</string>
-    <string name="stress_question05">How often have you felt that you were effectively coping with important changes happening in your life?</string>
-    <string name="stress_question06">How often have you felt confident about your ability to handle your personal problems?</string>
-    <string name="stress_question07">How often have you felt that things were going your way?</string>
-    <string name="stress_question08">How often have you felt that you couldn\'t cope with all the things you had to do?</string>
-    <string name="stress_question09">How often have you been able to control the difficulties in your life?</string>
-    <string name="stress_question10">How often have you felt that you had everything under control?</string>
-    <string name="stress_question11">How often have you been angry because things that happened were outside of your control?</string>
-    <string name="stress_question12">How often have you found yourself thinking about all the things you still have to do?</string>
-    <string name="stress_question13">How often have you been able to control how you spend your time?</string>
-    <string name="stress_question14">How often have you felt that difficulties were piling up so high that you couldn’t overcome them?</string>
+    <string-array name="questions">
+        <!-- Stress -->
+        <item>How often have you been upset because something happened unexpectedly?</item>
+        <item>How often have you felt unable to control the important things in your life?</item>
+        <item>How often have you felt nervous or stressed?</item>
+        <item>How often have you successfully dealt with irritating life hassles?</item>
+        <item>How often have you felt that you were effectively coping with important changes happening in your life?</item>
+        <item>How often have you felt confident about your ability to handle your personal problems?</item>
+        <item>How often have you felt that things were going your way?</item>
+        <item>How often have you felt that you couldn\'t cope with all the things you had to do?</item>
+        <item>How often have you been able to control the difficulties in your life?</item>
+        <item>How often have you felt that you had everything under control?</item>
+        <item>How often have you been angry because things that happened were outside of your control?</item>
+        <item>How often have you found yourself thinking about all the things you still have to do?</item>
+        <item>How often have you been able to control how you spend your time?</item>
+        <item>How often have you felt that difficulties were piling up so high that you couldn’t overcome them?</item>
+        <!-- Resilience -->
+        <item>Soy capaz de adaptarme a los cambios</item>
+        <item>How often have you felt unable to control the important things in your life?</item>
+        <item>How often have you felt nervous or stressed?</item>
+        <item>How often have you successfully dealt with irritating life hassles?</item>
+        <item>How often have you felt that you were effectively coping with important changes happening in your life?</item>
+        <item>How often have you felt confident about your ability to handle your personal problems?</item>
+        <item>How often have you felt that things were going your way?</item>
+        <item>How often have you felt that you couldn\'t cope with all the things you had to do?</item>
+        <item>How often have you been able to control the difficulties in your life?</item>
+        <item>How often have you felt that you had everything under control?</item>
+    </string-array>
 
     <!-- Toast's -->
     <string name="invalid_answer">Choose an option</string>

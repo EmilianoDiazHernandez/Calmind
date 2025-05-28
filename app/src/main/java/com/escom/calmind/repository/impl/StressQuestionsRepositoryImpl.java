@@ -20,20 +20,6 @@ public class StressQuestionsRepositoryImpl implements StressQuestionsRepository 
 
     @Override
     public String[] getAll() {
-        return new String[]{
-                context.getString(R.string.stress_question01),
-                context.getString(R.string.stress_question02),
-                context.getString(R.string.stress_question03),
-                context.getString(R.string.stress_question04),
-                context.getString(R.string.stress_question05),
-                context.getString(R.string.stress_question06),
-                context.getString(R.string.stress_question07),
-                context.getString(R.string.stress_question08),
-                context.getString(R.string.stress_question09),
-                context.getString(R.string.stress_question10),
-                context.getString(R.string.stress_question11),
-                context.getString(R.string.stress_question12),
-                context.getString(R.string.stress_question13),
-                context.getString(R.string.stress_question14)};
+        return context.getResources().getStringArray(R.array.questions);
     }
 }

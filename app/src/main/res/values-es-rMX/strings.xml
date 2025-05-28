@@ -43,21 +43,35 @@
     <string name="journal_footer">Gana estrellitas</string>
     <string name="journal_btn_save">Guardar</string>
 
-    <!-- Stress Questions -->
-    <string name="stress_question01">¿Con qué frecuencia ha estado afectado por algo que ha ocurrido inesperadamente?</string>
-    <string name="stress_question02">¿Con qué frecuencia se ha sentido incapaz de controlar las cosas importantes en su vida?</string>
-    <string name="stress_question03">¿Con qué frecuencia se ha sentido nervioso o estresado?</string>
-    <string name="stress_question04">¿Con qué frecuencia ha manejado con éxito los pequeños problemas irritantes de la vida?</string>
-    <string name="stress_question05">¿Con qué frecuencia ha sentido que ha afrontado efectivamente los cambios importantes que han estado ocurriendo en su vida?</string>
-    <string name="stress_question06">¿Con qué frecuencia ha estado seguro sobre su capacidad para manejar sus problemas personales?</string>
-    <string name="stress_question07">¿Con qué frecuencia ha sentido que las cosas le van bien?</string>
-    <string name="stress_question08">¿Con qué frecuencia ha sentido que no podía afrontar todas las cosas que tenía que hacer?</string>
-    <string name="stress_question09">¿Con qué frecuencia ha podido controlar las dificultades de su vida?</string>
-    <string name="stress_question10">¿Con que frecuencia se ha sentido que tenia todo bajo control?</string>
-    <string name="stress_question11">¿Con qué frecuencia ha estado enfadado porque  las cosas que le han ocurrido estaban fuera de su control?</string>
-    <string name="stress_question12">¿Con qué frecuencia ha  pensado sobre las cosas que le quedan  por hacer?</string>
-    <string name="stress_question13">¿Con qué frecuencia ha podido controlar la forma  de  pasar  el tiempo?</string>
-    <string name="stress_question14">¿Con qué frecuencia ha sentido que las dificultades se acumulan tanto que no puede superarlas?</string>
+    <!-- Questions -->
+    <string-array name="questions">
+        <!-- Stress -->
+        <item>¿Con qué frecuencia ha estado afectado por algo que ha ocurrido inesperadamente?</item>
+        <item>¿Con qué frecuencia se ha sentido incapaz de controlar las cosas importantes en su vida?</item>
+        <item>¿Con qué frecuencia se ha sentido nervioso o estresado?</item>
+        <item>¿Con qué frecuencia ha manejado con éxito los pequeños problemas irritantes de la vida?</item>
+        <item>¿Con qué frecuencia ha sentido que ha afrontado efectivamente los cambios importantes que han estado ocurriendo en su vida?</item>
+        <item>¿Con qué frecuencia ha estado seguro sobre su capacidad para manejar sus problemas personales?</item>
+        <item>¿Con qué frecuencia ha sentido que las cosas le van bien?</item>
+        <item>¿Con qué frecuencia ha sentido que no podía afrontar todas las cosas que tenía que hacer?</item>
+        <item>¿Con qué frecuencia ha podido controlar las dificultades de su vida?</item>
+        <item>¿Con qué frecuencia se ha sentido que tenía todo bajo control?</item>
+        <item>¿Con qué frecuencia ha estado enfadado porque las cosas que le han ocurrido estaban fuera de su control?</item>
+        <item>¿Con qué frecuencia ha pensado sobre las cosas que le quedan por hacer?</item>
+        <item>¿Con qué frecuencia ha podido controlar la forma de pasar el tiempo?</item>
+        <item>¿Con qué frecuencia ha sentido que las dificultades se acumulan tanto que no puede superarlas?</item>
+        <!-- Resilience -->
+        <item>Soy capaz de adaptarme a los cambios</item>
+        <item>Tengo una actitud positiva ante los problemas.</item>
+        <item>Tiendo a recuperarme después de una enfermedad o dificultad.</item>
+        <item>Puedo manejar situaciones estresantes sin desmoronarme.</item>
+        <item>Sé cómo lidiar con lo que sea que venga.</item>
+        <item>Me recupero rápidamente después de momentos difíciles.</item>
+        <item>Soy fuerte frente a la adversidad.</item>
+        <item>Las dificultades me hacen esforzarme más.</item>
+        <item>Me mantengo enfocado/a bajo presión.</item>
+        <item>No me doy por vencido/a fácilmente.</item>
+    </string-array>
 
     <!-- Toast's -->
     <string name="invalid_answer">Elija una opción</string>
