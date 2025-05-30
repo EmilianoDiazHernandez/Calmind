@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
@@ -20,6 +22,7 @@ import com.escom.calmind.ui.screen.SplashScreen
 import com.escom.calmind.ui.screen.TestScreen
 import com.escom.calmind.ui.screen.WelcomeScreen
 import com.escom.calmind.ui.theme.CalmindTheme
+import com.escom.calmind.ui.viewmodel.StressQuestionsViewModel
 import com.escom.calmind.ui.viewmodel.WelcomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -72,7 +75,22 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
-                        composable<TestScreen> { TestScreen() }
+                        composable<TestScreen> {
+                            val testViewModel = hiltViewModel<StressQuestionsViewModel>()
+                            val currentQuestion by testViewModel.currentQuestion.observeAsState(
+                                String()
+                            )
+                            val currentUser by testViewModel.userDataLiveData.observeAsState(null)
+                            val isTestFinished by testViewModel.isFinished.observeAsState(false)
+                            TestScreen(
+                                currentQuestion = currentQuestion,
+                                onQuestionAnswered = testViewModel::onQuestionAnswered,
+                                currentUser = currentUser,
+                                onTestResultsAvailable = testViewModel::getTestResult,
+                                isTestFinished = isTestFinished,
+                                onConfirmDialog = {}
+                            )
+                        }
                         composable<LoginScreen> {
                             Text("Login")
                         }

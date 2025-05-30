@@ -78,4 +78,7 @@
     <string name="congratulations">¡Felicidades!</string>
     <string name="message_successfully">Haz completado el cuestionario</string>
     <string name="go">¡Sigamos!</string>
+    <string name="stress_low">¡Vaya!\\nTus resultados muestran que estás manejando las cosas bastante bien. ¡Eso es genial!</string>
+    <string name="stress_medium">Veo que algunas cosas te están pesando un poco. ¡Es totalmente normal sentirse así a veces!</string>
+    <string name="stress_high">Entiendo que ahora mismo las cosas pueden sentirse abrumadoras. No estás solo/a y mereces apoyo</string>
 </resources>

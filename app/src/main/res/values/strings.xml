@@ -76,4 +76,7 @@
     <string name="congratulations">Congratulations!</string>
     <string name="message_successfully">You have finished the test successfully</string>
     <string name="go">Let\'s Go!</string>
+    <string name="stress_low">Whoa!\nYour results show you\'re handling things really well right now—that\'s awesome!</string>
+    <string name="stress_medium">Hey, I see some things might feel a bit heavy right now</string>
+    <string name="stress_high">It sounds like things might feel overwhelming right now</string>
 </resources>

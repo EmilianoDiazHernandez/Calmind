@@ -3,44 +3,60 @@ package com.escom.calmind.ui.composable
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidViewBinding
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.escom.calmind.R
 import com.escom.calmind.databinding.TestViewBinding
-import com.escom.calmind.ui.viewmodel.StressQuestionsViewModel
+import com.escom.calmind.model.ResilienceResult
+import com.escom.calmind.model.StressResult
+import com.escom.calmind.model.TestResult
+import com.escom.calmind.model.TraumaResult
+import com.escom.calmind.model.UserData
+import com.escom.calmind.ui.theme.CalmindTheme
 
 
 @Composable
-fun TestScreen() {
-    val viewModel = hiltViewModel<StressQuestionsViewModel>()
-    val currentQuestion by viewModel.currentQuestion.observeAsState("")
-    val currentUser by viewModel.userDataLiveData.observeAsState()
-    Column {
-        val isFinished by viewModel.isFinished.observeAsState(initial = false)
-        if (isFinished) {
+fun TestScreen(
+    modifier: Modifier = Modifier,
+    currentQuestion: String,
+    onQuestionAnswered: (answer: Int) -> Unit,
+    onTestResultsAvailable: () -> TestResult,
+    currentUser: UserData?,
+    isTestFinished: Boolean,
+    onConfirmDialog: () -> Unit
+) {
+    Column(modifier = modifier.fillMaxSize()) {
+        if (isTestFinished) {
             AlertDialog(
                 onDismissRequest = {},
                 confirmButton = {
-                    Button(onClick = {}) {
+                    Button(onClick = onConfirmDialog) {
                         Text(stringResource(R.string.go))
                     }
                 },
                 title = {
                     Text(
                         stringResource(R.string.congratulations),
-                        style = MaterialTheme.typography.bodyLarge
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center
                     )
                 },
                 text = {
@@ -52,8 +68,27 @@ fun TestScreen() {
                             currentUser?.name.orEmpty(),
                             style = MaterialTheme.typography.bodyLarge
                         )
-                        Text(stringResource(R.string.message_successfully))
-                        val result = viewModel.results
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            stringResource(R.string.message_successfully),
+                            textAlign = TextAlign.Center
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        val testResults = onTestResultsAvailable()
+                        //HorizontalPager() { }
+                        val stressMessage: String = stringResource(
+                            when (testResults.stressResult!!) {
+                                StressResult.LOW -> R.string.stress_low
+                                StressResult.MIDDLE -> R.string.stress_medium
+                                StressResult.HIGH -> R.string.stress_high
+                            }
+                        )
+                        Text(
+                            stressMessage,
+                            style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center
+                        )
+                        //val result = results
 
                     }
                 }
@@ -63,7 +98,7 @@ fun TestScreen() {
             question.text = currentQuestion
             btnConfirm.setOnClickListener {
                 if (radioGroup.checkedRadioButtonId != -1)
-                    viewModel.onQuestionAnswered(
+                    onQuestionAnswered(
                         radioGroup.indexOfChild(
                             radioGroup.findViewById<RadioButton>(
                                 radioGroup.checkedRadioButtonId
@@ -80,4 +115,28 @@ fun TestScreen() {
             radioGroup.clearCheck()
         }
     }
+}
+
+@Preview(device = "id:pixel_5", showSystemUi = true, showBackground = true)
+@Composable
+private fun TestScreenPreview() {
+    CalmindTheme {
+        Surface {
+            TestScreen(
+                modifier = Modifier,
+                currentQuestion = "How do you feel today?",
+                onQuestionAnswered = {},
+                currentUser = UserData("Diego", 13, emptyList(), "High School"),
+                onTestResultsAvailable = {
+                    TestResult(
+                        StressResult.LOW,
+                        ResilienceResult.LOW,
+                        TraumaResult.NO_TEPT
+                    )
+                },
+                isTestFinished = true
+            ) { }
+        }
+    }
+
 }
