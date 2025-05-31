@@ -51,7 +51,7 @@
         <item>How often have you felt that you were effectively coping with important changes happening in your life?</item>
         <item>How often have you felt confident about your ability to handle your personal problems?</item>
         <item>How often have you felt that things were going your way?</item>
-        <item>How often have you felt that you couldn\'t cope with all the things you had to do?</item>
+        <item>How often have you felt that you could not cope with all the things you had to do?</item>
         <item>How often have you been able to control the difficulties in your life?</item>
         <item>How often have you felt that you had everything under control?</item>
         <item>How often have you been angry because things that happened were outside of your control?</item>
@@ -59,14 +59,14 @@
         <item>How often have you been able to control how you spend your time?</item>
         <item>How often have you felt that difficulties were piling up so high that you couldn’t overcome them?</item>
         <!-- Resilience -->
-        <item>Soy capaz de adaptarme a los cambios</item>
+        <item>I can roll with the changes.</item>
         <item>How often have you felt unable to control the important things in your life?</item>
         <item>How often have you felt nervous or stressed?</item>
         <item>How often have you successfully dealt with irritating life hassles?</item>
         <item>How often have you felt that you were effectively coping with important changes happening in your life?</item>
         <item>How often have you felt confident about your ability to handle your personal problems?</item>
         <item>How often have you felt that things were going your way?</item>
-        <item>How often have you felt that you couldn\'t cope with all the things you had to do?</item>
+        <item>How often have you felt that you could not cope with all the things you had to do?</item>
         <item>How often have you been able to control the difficulties in your life?</item>
         <item>How often have you felt that you had everything under control?</item>
     </string-array>
@@ -74,9 +74,16 @@
     <!-- Toast's -->
     <string name="invalid_answer">Choose an option</string>
     <string name="congratulations">Congratulations!</string>
-    <string name="message_successfully">You have finished the test successfully</string>
+    <string name="message_successfully">You have finished the test successfully, please swipe right to see your results</string>
     <string name="go">Let\'s Go!</string>
     <string name="stress_low">Whoa!\nYour results show you\'re handling things really well right now—that\'s awesome!</string>
     <string name="stress_medium">Hey, I see some things might feel a bit heavy right now</string>
     <string name="stress_high">It sounds like things might feel overwhelming right now</string>
+    <string name="swipe_right">Swipe right</string>
+    <string name="resilience_low">It looks like you might be facing some tough challenges right now. Remember, resilience is like a muscle that gets stronger with practice. We\'re here to help you build it step by step. Try our guided activities to start growing your inner strength!</string>
+    <string name="resilience_middle">You have a good foundation of resilience! There’s always room to grow, and we can help you strengthen your skills even more. Explore our tools to handle challenges with greater confidence.</string>
+    <string name="resilience_high">Wow, your resilience is impressive! You have strong skills to navigate challenges. Keep nurturing this superpower—our advanced resources can help you shine even brighter.</string>
+    <string name="no_ptsd">Great news! Your results are good. Keep using our app to maintain your mental well-being—explore activities to stay strong and positive!</string>
+    <string name="probable_ptsd">Your feelings are valid, and it’s okay to seek support. Consider talking to a trusted adult or mental health professional. Meanwhile, our app offers calming tools to help you cope—you’re not alone.</string>
+    <string name="high_probable_ptsd">Please consider to reach out to a mental health professional or trusted adult soon—they can provide important support. Our app has emergency resources and calming exercises to help while you connect with them. You deserve care.</string>
 </resources>

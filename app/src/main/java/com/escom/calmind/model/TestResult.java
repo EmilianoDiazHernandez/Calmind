@@ -25,11 +25,11 @@ public class TestResult {
         this.stressResult = stressResult;
     }
 
-    public ResilienceResult getAttachmentResult() {
+    public ResilienceResult getResilienceResult() {
         return resilienceResult;
     }
 
-    public void setAttachmentResult(ResilienceResult resilienceResult) {
+    public void setResilienceResult(ResilienceResult resilienceResult) {
         this.resilienceResult = resilienceResult;
     }
 

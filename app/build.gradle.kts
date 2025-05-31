@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.ui.viewbinding)
+    implementation(libs.androidx.foundation.layout.android)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.fragment)
     implementation(libs.androidx.hilt.navigation.compose)

@@ -76,9 +76,16 @@
     <!-- Toast's -->
     <string name="invalid_answer">Elija una opción</string>
     <string name="congratulations">¡Felicidades!</string>
-    <string name="message_successfully">Haz completado el cuestionario</string>
+    <string name="message_successfully">Haz completado el cuestionario, por favor desliza a la izquierda para ver tus resultados</string>
     <string name="go">¡Sigamos!</string>
     <string name="stress_low">¡Vaya!\\nTus resultados muestran que estás manejando las cosas bastante bien. ¡Eso es genial!</string>
     <string name="stress_medium">Veo que algunas cosas te están pesando un poco. ¡Es totalmente normal sentirse así a veces!</string>
     <string name="stress_high">Entiendo que ahora mismo las cosas pueden sentirse abrumadoras. No estás solo/a y mereces apoyo</string>
+    <string name="swipe_right">Desliza a la izquierda</string>
+    <string name="resilience_low">Parece que estás enfrentando desafíos difíciles en este momento. Recuerda: la resiliencia es como un músculo que se fortalece con práctica. Estamos aquí para ayudarte a desarrollarla poco a poco. ¡Prueba nuestras actividades guiadas para empezar a fortalecerte!</string>
+    <string name="resilience_middle">¡Tienes una buena base de resiliencia! Siempre hay espacio para crecer, y podemos ayudarte a fortalecer tus habilidades aún más. Descubre nuestras herramientas para enfrentar desafíos con más confianza.</string>
+    <string name="resilience_high">¡Guau, tu resiliencia es admirable! Tienes grandes habilidades para manejar desafíos. Sigue fortaleciendo este superpoder; nuestros recursos avanzados te ayudarán a brillar aún más</string>
+    <string name="no_ptsd">¡Buena noticia! Tus resultados no muestran señales de estrés postraumático. Sigue usando la app para cuidar tu bienestar mental. Descubre actividades para mantenerte fuerte y positivo.</string>
+    <string name="probable_ptsd">Tus sentimientos son válidos y está bien buscar apoyo. Considera hablar con un adulto de confianza o un profesional de salud mental. Mientras tanto, la app tiene herramientas tranquilizadoras para ayudarte. No estás solo.</string>
+    <string name="high_probable_ptsd">Habla pronto con un profesional de salud mental o un adulto de confianza—pueden brindarte apoyo crucial. La app tiene recursos de emergencia y ejercicios calmantes mientras los contactas. Mereces cuidado.</string>
 </resources>

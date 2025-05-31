@@ -46,9 +46,9 @@ public class StressQuestionsViewModel extends ViewModel {
     }
 
     private TraumaResult getTraumaResult() {
-        if (trauma <= 30) return TraumaResult.NO_TEPT;
-        if (trauma <= 33) return TraumaResult.PROBABLE_TEPT;
-        return TraumaResult.HIGHLY_PROBABLE_TEPT;
+        if (trauma <= 30) return TraumaResult.NO_PTSD;
+        if (trauma <= 33) return TraumaResult.PROBABLE_PTSD;
+        return TraumaResult.HIGHLY_PROBABLE_PTSD;
     }
 
     private ResilienceResult getResilience() {
@@ -92,7 +92,4 @@ public class StressQuestionsViewModel extends ViewModel {
             finished.setValue(true);
     }
 
-    public TestResult getResults() {
-        return null;
-    }
 }
