@@ -88,4 +88,8 @@
     <string name="no_ptsd">¡Buena noticia! Tus resultados no muestran señales de estrés postraumático. Sigue usando la app para cuidar tu bienestar mental. Descubre actividades para mantenerte fuerte y positivo.</string>
     <string name="probable_ptsd">Tus sentimientos son válidos y está bien buscar apoyo. Considera hablar con un adulto de confianza o un profesional de salud mental. Mientras tanto, la app tiene herramientas tranquilizadoras para ayudarte. No estás solo.</string>
     <string name="high_probable_ptsd">Habla pronto con un profesional de salud mental o un adulto de confianza—pueden brindarte apoyo crucial. La app tiene recursos de emergencia y ejercicios calmantes mientras los contactas. Mereces cuidado.</string>
+    <string name="create_account">¡Creemos una cuenta!</string>
+    <string name="email">Correo eléctronico</string>
+    <string name="password">Contraseña</string>
+    <string name="change_password_visibility">Change password visibility</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.escom.calmind.ui.composable
 
+import android.util.Patterns
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,21 +12,35 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Visibility
+import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,7 +61,11 @@ fun CongratulationDialog(
     onTestResultsAvailable: () -> TestResult,
     currentUser: UserData?,
     onConfirmDialog: () -> Unit,
-    pageState: PagerState
+    pageState: PagerState,
+    email: String,
+    onEmailChange: (String) -> Unit,
+    password: String,
+    onPasswordChange: (String) -> Unit
 ) {
     Dialog(
         onDismissRequest = {},
@@ -133,14 +153,93 @@ fun CongratulationDialog(
                                     modifier = Modifier.padding(vertical = 16.dp)
                                 )
                             }
+
                             3 -> {
-                                Button(
-                                    onClick = onConfirmDialog,
-                                    modifier = Modifier.padding(16.dp)
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(vertical = 8.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center
                                 ) {
-                                    Text(text = stringResource(R.string.go))
+                                    Text(
+                                        stringResource(R.string.create_account),
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                    OutlinedTextField(
+                                        value = email, onValueChange = onEmailChange, label = {
+                                            Text(
+                                                stringResource(R.string.email),
+                                                style = MaterialTheme.typography.bodyMedium
+                                            )
+                                        },
+                                        keyboardOptions = KeyboardOptions(
+                                            keyboardType = KeyboardType.Email,
+                                            imeAction = ImeAction.Next
+                                        ),
+                                        singleLine = true,
+                                        isError = email.isNotBlank() && !Patterns.EMAIL_ADDRESS.matcher(
+                                            email
+                                        ).matches()
+                                    )
+                                    var showPassword by rememberSaveable {
+                                        mutableStateOf(false)
+                                    }
+                                    val visualTransformation by remember {
+                                        derivedStateOf {
+                                            if (showPassword)
+                                                (Icons.Outlined.VisibilityOff to VisualTransformation.None)
+                                            else
+                                                (Icons.Outlined.Visibility to PasswordVisualTransformation(
+                                                    '*'
+                                                ))
+                                        }
+                                    }
+                                    OutlinedTextField(
+                                        value = password,
+                                        onValueChange = onPasswordChange,
+                                        label = {
+                                            Text(
+                                                stringResource(R.string.password),
+                                                style = MaterialTheme.typography.bodyMedium
+                                            )
+                                        },
+                                        visualTransformation = visualTransformation.second,
+                                        trailingIcon = {
+                                            IconButton(onClick = { showPassword = !showPassword }) {
+                                                Icon(
+                                                    visualTransformation.first,
+                                                    contentDescription = stringResource(
+                                                        R.string.change_password_visibility
+                                                    )
+                                                )
+                                            }
+                                        },
+                                        keyboardOptions = KeyboardOptions(
+                                            keyboardType = KeyboardType.Password,
+                                            imeAction = ImeAction.Send
+                                        ),
+                                        keyboardActions = KeyboardActions(
+                                            onSend = {
+                                                if (Patterns.EMAIL_ADDRESS.matcher(email)
+                                                        .matches() && password.isNotBlank() && password.length >= 8
+                                                )
+                                                    onConfirmDialog()
+                                            }
+                                        ),
+                                        singleLine = true
+                                    )
+                                    Button(
+                                        onClick = onConfirmDialog,
+                                        modifier = Modifier.padding(16.dp),
+                                        enabled = Patterns.EMAIL_ADDRESS.matcher(email)
+                                            .matches() && password.isNotBlank() && password.length >= 8
+                                    ) {
+                                        Text(text = stringResource(R.string.go))
+                                    }
                                 }
                             }
+
                             else -> {
                                 val emojis = listOf("🌻", "☺", "⭐", "🎈")
                                 Text(
@@ -173,7 +272,11 @@ private fun DialogPreview() {
                 )
             },
             onConfirmDialog = {},
-            pageState = pageState
+            pageState = pageState,
+            email = "",
+            onEmailChange = {},
+            password = "",
+            onPasswordChange = {}
         )
     }
 }
@@ -193,7 +296,11 @@ private fun DialogPreview2() {
                 )
             },
             onConfirmDialog = {},
-            pageState = pageState
+            pageState = pageState,
+            email = "",
+            onEmailChange = {},
+            password = "",
+            onPasswordChange = {}
         )
     }
 }
@@ -213,7 +320,11 @@ private fun DialogPreview3() {
                 )
             },
             onConfirmDialog = {},
-            pageState = pageState
+            pageState = pageState,
+            email = "",
+            onEmailChange = {},
+            password = "",
+            onPasswordChange = {}
         )
     }
 }

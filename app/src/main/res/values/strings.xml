@@ -86,4 +86,8 @@
     <string name="no_ptsd">Great news! Your results are good. Keep using our app to maintain your mental well-being—explore activities to stay strong and positive!</string>
     <string name="probable_ptsd">Your feelings are valid, and it’s okay to seek support. Consider talking to a trusted adult or mental health professional. Meanwhile, our app offers calming tools to help you cope—you’re not alone.</string>
     <string name="high_probable_ptsd">Please consider to reach out to a mental health professional or trusted adult soon—they can provide important support. Our app has emergency resources and calming exercises to help while you connect with them. You deserve care.</string>
+    <string name="create_account">Let\'s create an account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="change_password_visibility">Change password visibility</string>
 </resources>

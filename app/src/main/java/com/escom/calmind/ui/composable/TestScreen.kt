@@ -34,7 +34,11 @@ fun TestScreen(
             CongratulationDialog(
                 onTestResultsAvailable = onTestResultsAvailable,
                 currentUser = currentUser, onConfirmDialog = onConfirmDialog,
-                pageState = pageState
+                pageState = pageState,
+                email = "",
+                onEmailChange = {},
+                password = "",
+                onPasswordChange = {}
             )
         }
         AndroidViewBinding(TestViewBinding::inflate, modifier = Modifier.fillMaxSize()) {
