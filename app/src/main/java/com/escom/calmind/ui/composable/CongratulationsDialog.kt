@@ -1,7 +1,6 @@
 package com.escom.calmind.ui.composable
 
 import android.util.Patterns
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +19,7 @@ import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -58,14 +58,15 @@ import com.escom.calmind.ui.theme.CalmindTheme
 
 @Composable
 fun CongratulationDialog(
-    onTestResultsAvailable: () -> TestResult,
+    testResult: TestResult?,
     currentUser: UserData?,
     onConfirmDialog: () -> Unit,
     pageState: PagerState,
     email: String,
     onEmailChange: (String) -> Unit,
     password: String,
-    onPasswordChange: (String) -> Unit
+    onPasswordChange: (String) -> Unit,
+    isLoading: Boolean
 ) {
     Dialog(
         onDismissRequest = {},
@@ -82,7 +83,7 @@ fun CongratulationDialog(
                     containerColor = MaterialTheme.colorScheme.surfaceContainerLow
                 )
             ) {
-                val testResults = onTestResultsAvailable()
+                val testResults = checkNotNull(testResult)
                 Text(
                     text = stringResource(R.string.congratulations),
                     style = MaterialTheme.typography.titleMedium,
@@ -109,7 +110,11 @@ fun CongratulationDialog(
                     state = pageState,
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(16.dp)
+                        .padding(16.dp),
+                    verticalAlignment = if (pageState.currentPage != pageState.pageCount - 1)
+                        Alignment.CenterVertically
+                    else
+                        Alignment.Top
                 ) { page ->
                     val messageId: Int by remember {
                         derivedStateOf {
@@ -127,11 +132,13 @@ fun CongratulationDialog(
                                     ResilienceResult.HIGH -> R.string.resilience_high
                                 }
 
-                                else -> when (testResults.traumaResult!!) {
+                                3 -> when (testResults.traumaResult!!) {
                                     TraumaResult.NO_PTSD -> R.string.no_ptsd
                                     TraumaResult.PROBABLE_PTSD -> R.string.probable_ptsd
                                     TraumaResult.HIGHLY_PROBABLE_PTSD -> R.string.high_probable_ptsd
                                 }
+
+                                else -> R.string.create_account
                             }
                         }
                     }
@@ -154,90 +161,85 @@ fun CongratulationDialog(
                                 )
                             }
 
-                            3 -> {
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(vertical = 8.dp),
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.Center
-                                ) {
-                                    Text(
-                                        stringResource(R.string.create_account),
-                                        style = MaterialTheme.typography.bodyMedium
-                                    )
-                                    OutlinedTextField(
-                                        value = email, onValueChange = onEmailChange, label = {
-                                            Text(
-                                                stringResource(R.string.email),
-                                                style = MaterialTheme.typography.bodyMedium
-                                            )
-                                        },
-                                        keyboardOptions = KeyboardOptions(
-                                            keyboardType = KeyboardType.Email,
-                                            imeAction = ImeAction.Next
-                                        ),
-                                        singleLine = true,
-                                        isError = email.isNotBlank() && !Patterns.EMAIL_ADDRESS.matcher(
-                                            email
-                                        ).matches()
-                                    )
-                                    var showPassword by rememberSaveable {
-                                        mutableStateOf(false)
-                                    }
-                                    val visualTransformation by remember {
-                                        derivedStateOf {
-                                            if (showPassword)
-                                                (Icons.Outlined.VisibilityOff to VisualTransformation.None)
-                                            else
-                                                (Icons.Outlined.Visibility to PasswordVisualTransformation(
-                                                    '*'
-                                                ))
-                                        }
-                                    }
-                                    OutlinedTextField(
-                                        value = password,
-                                        onValueChange = onPasswordChange,
-                                        label = {
-                                            Text(
-                                                stringResource(R.string.password),
-                                                style = MaterialTheme.typography.bodyMedium
-                                            )
-                                        },
-                                        visualTransformation = visualTransformation.second,
-                                        trailingIcon = {
-                                            IconButton(onClick = { showPassword = !showPassword }) {
-                                                Icon(
-                                                    visualTransformation.first,
-                                                    contentDescription = stringResource(
-                                                        R.string.change_password_visibility
-                                                    )
-                                                )
-                                            }
-                                        },
-                                        keyboardOptions = KeyboardOptions(
-                                            keyboardType = KeyboardType.Password,
-                                            imeAction = ImeAction.Send
-                                        ),
-                                        keyboardActions = KeyboardActions(
-                                            onSend = {
-                                                if (Patterns.EMAIL_ADDRESS.matcher(email)
-                                                        .matches() && password.isNotBlank() && password.length >= 8
-                                                )
-                                                    onConfirmDialog()
-                                            }
-                                        ),
-                                        singleLine = true
-                                    )
-                                    Button(
-                                        onClick = onConfirmDialog,
-                                        modifier = Modifier.padding(16.dp),
-                                        enabled = Patterns.EMAIL_ADDRESS.matcher(email)
-                                            .matches() && password.isNotBlank() && password.length >= 8
-                                    ) {
-                                        Text(text = stringResource(R.string.go))
+                            4 -> {
+                                OutlinedTextField(
+                                    value = email, onValueChange = onEmailChange, label = {
+                                        Text(
+                                            stringResource(R.string.email),
+                                            style = MaterialTheme.typography.bodyMedium
+                                        )
+                                    },
+                                    keyboardOptions = KeyboardOptions(
+                                        keyboardType = KeyboardType.Email,
+                                        imeAction = ImeAction.Next
+                                    ),
+                                    singleLine = true,
+                                    isError = email.isNotBlank() && !Patterns.EMAIL_ADDRESS.matcher(
+                                        email
+                                    ).matches()
+                                )
+                                var showPassword by rememberSaveable {
+                                    mutableStateOf(false)
+                                }
+                                val visualTransformation by remember {
+                                    derivedStateOf {
+                                        if (showPassword)
+                                            (Icons.Outlined.VisibilityOff to VisualTransformation.None)
+                                        else
+                                            (Icons.Outlined.Visibility to PasswordVisualTransformation(
+                                                '*'
+                                            ))
                                     }
                                 }
+                                OutlinedTextField(
+                                    value = password,
+                                    onValueChange = onPasswordChange,
+                                    label = {
+                                        Text(
+                                            stringResource(R.string.password),
+                                            style = MaterialTheme.typography.bodyMedium
+                                        )
+                                    },
+                                    visualTransformation = visualTransformation.second,
+                                    trailingIcon = {
+                                        IconButton(onClick = { showPassword = !showPassword }) {
+                                            Icon(
+                                                visualTransformation.first,
+                                                contentDescription = stringResource(
+                                                    R.string.change_password_visibility
+                                                )
+                                            )
+                                        }
+                                    },
+                                    keyboardOptions = KeyboardOptions(
+                                        keyboardType = KeyboardType.Password,
+                                        imeAction = ImeAction.Send
+                                    ),
+                                    keyboardActions = KeyboardActions(
+                                        onSend = {
+                                            if (
+                                                Patterns.EMAIL_ADDRESS.matcher(email)
+                                                    .matches() && password.isNotBlank()
+                                                && password.length >= 8
+                                            )
+                                                onConfirmDialog()
+                                        }
+                                    ),
+                                    singleLine = true
+                                )
+                                Button(
+                                    onClick = onConfirmDialog,
+                                    modifier = Modifier.padding(16.dp),
+                                    enabled = Patterns.EMAIL_ADDRESS.matcher(email)
+                                        .matches() && password.isNotBlank() && password.length >= 8
+                                            && !isLoading
+                                ) {
+                                    if (!isLoading)
+                                        Text(text = stringResource(R.string.go))
+                                    else
+                                        CircularProgressIndicator()
+                                }
+
                             }
 
                             else -> {
@@ -257,26 +259,50 @@ fun CongratulationDialog(
     )
 }
 
-@Preview(name = "Dialog - page 1", group = "Dialog")
+@Preview(name = "Dialog - page 0", group = "Dialog")
 @Composable
-private fun DialogPreview() {
-    val pageState = rememberPagerState(initialPage = 1, pageCount = { 4 })
+private fun DialogPreview0() {
+    val pageState = rememberPagerState(initialPage = 0, pageCount = { 5 })
     CalmindTheme {
         CongratulationDialog(
+            testResult =
+            TestResult(
+                StressResult.LOW,
+                ResilienceResult.LOW,
+                TraumaResult.NO_PTSD
+            ),
             currentUser = UserData("Diego", 13, emptyList(), "High School"),
-            onTestResultsAvailable = {
-                TestResult(
-                    StressResult.LOW,
-                    ResilienceResult.LOW,
-                    TraumaResult.NO_PTSD
-                )
-            },
             onConfirmDialog = {},
             pageState = pageState,
             email = "",
             onEmailChange = {},
             password = "",
-            onPasswordChange = {}
+            onPasswordChange = {},
+            isLoading = false
+        )
+    }
+}
+
+@Preview(name = "Dialog - page 1", group = "Dialog")
+@Composable
+private fun DialogPreview() {
+    val pageState = rememberPagerState(initialPage = 1, pageCount = { 5 })
+    CalmindTheme {
+        CongratulationDialog(
+            testResult =
+            TestResult(
+                StressResult.LOW,
+                ResilienceResult.LOW,
+                TraumaResult.NO_PTSD
+            ),
+            currentUser = UserData("Diego", 13, emptyList(), "High School"),
+            onConfirmDialog = {},
+            pageState = pageState,
+            email = "",
+            onEmailChange = {},
+            password = "",
+            onPasswordChange = {},
+            isLoading = false
         )
     }
 }
@@ -284,23 +310,23 @@ private fun DialogPreview() {
 @Preview(name = "Dialog - page 2", group = "Dialog")
 @Composable
 private fun DialogPreview2() {
-    val pageState = rememberPagerState(initialPage = 2, pageCount = { 4 })
+    val pageState = rememberPagerState(initialPage = 2, pageCount = { 5 })
     CalmindTheme {
         CongratulationDialog(
+            testResult =
+            TestResult(
+                StressResult.LOW,
+                ResilienceResult.MIDDLE,
+                TraumaResult.NO_PTSD
+            ),
             currentUser = UserData("Diego", 13, emptyList(), "High School"),
-            onTestResultsAvailable = {
-                TestResult(
-                    StressResult.LOW,
-                    ResilienceResult.MIDDLE,
-                    TraumaResult.NO_PTSD
-                )
-            },
             onConfirmDialog = {},
             pageState = pageState,
             email = "",
             onEmailChange = {},
             password = "",
-            onPasswordChange = {}
+            onPasswordChange = {},
+            isLoading = false
         )
     }
 }
@@ -308,23 +334,47 @@ private fun DialogPreview2() {
 @Preview(name = "Dialog - page 3", group = "Dialog")
 @Composable
 private fun DialogPreview3() {
-    val pageState = rememberPagerState(initialPage = 3, pageCount = { 4 })
+    val pageState = rememberPagerState(initialPage = 3, pageCount = { 5 })
     CalmindTheme {
         CongratulationDialog(
+            testResult =
+            TestResult(
+                StressResult.LOW,
+                ResilienceResult.MIDDLE,
+                TraumaResult.NO_PTSD
+            ),
             currentUser = UserData("Diego", 13, emptyList(), "High School"),
-            onTestResultsAvailable = {
-                TestResult(
-                    StressResult.LOW,
-                    ResilienceResult.MIDDLE,
-                    TraumaResult.NO_PTSD
-                )
-            },
             onConfirmDialog = {},
             pageState = pageState,
-            email = "",
+            email = "this is not an email",
             onEmailChange = {},
-            password = "",
-            onPasswordChange = {}
+            password = "12345678",
+            onPasswordChange = {},
+            isLoading = false
+        )
+    }
+}
+
+@Preview(name = "Dialog - page 4", group = "Dialog")
+@Composable
+private fun DialogPreview4() {
+    val pageState = rememberPagerState(initialPage = 4, pageCount = { 5 })
+    CalmindTheme {
+        CongratulationDialog(
+            testResult =
+            TestResult(
+                StressResult.LOW,
+                ResilienceResult.MIDDLE,
+                TraumaResult.NO_PTSD
+            ),
+            currentUser = UserData("Diego", 13, emptyList(), "High School"),
+            onConfirmDialog = {},
+            pageState = pageState,
+            email = "this is not an email",
+            onEmailChange = {},
+            password = "12345678",
+            onPasswordChange = {},
+            isLoading = false
         )
     }
 }

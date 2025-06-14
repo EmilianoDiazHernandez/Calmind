@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.crashlytics)
     id("com.google.dagger.hilt.android")
     kotlin("kapt")
 }
@@ -47,22 +49,38 @@ dependencies {
 
     /* Preferences DataStore */
     implementation(libs.androidx.datastore.preferences)
+    /* Preferences DataStore */
 
     /*Navigation*/
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.fragment)
+    implementation(libs.androidx.hilt.navigation.compose)
+    /*Navigation*/
 
     /*Serialization*/
     implementation(libs.kotlinx.serialization.json)
+    /*Serialization*/
 
-    /*Dagger hilt*/
-    implementation(libs.hilt.android)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.ui.viewbinding)
     implementation(libs.androidx.foundation.layout.android)
-    kapt(libs.hilt.compiler)
-    implementation(libs.androidx.hilt.navigation.fragment)
-    implementation(libs.androidx.hilt.navigation.compose)
+
     /*Dagger hilt*/
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    /*Dagger hilt*/
+
+    /*Firebase*/
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.auth)
+    /*Firebase*/
+
+    /*viewModelScope*/
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx.v291)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    /*viewModelScope*/
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

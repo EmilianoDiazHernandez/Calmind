@@ -26,6 +26,6 @@ class WelcomeViewModel @Inject constructor(
             hobbies = hobbies,
             schooling = schooling
         )
-        userDataRepository.addData(new)
+        userDataRepository.set(new)
     }
 }

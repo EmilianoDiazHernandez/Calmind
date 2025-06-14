@@ -1,19 +1,22 @@
 package com.escom.calmind.di
 
+import com.escom.calmind.repository.TestResultRepository
 import com.escom.calmind.repository.UserDataRepository
+import com.escom.calmind.repository.impl.TestResultRepositoryImpl
 import com.escom.calmind.repository.impl.UserDataRepositoryImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object UserDataModule {
+abstract class UserDataModule {
 
-    @Provides
-    @Singleton
-    fun provideDataRepository(dataRepository: UserDataRepositoryImpl): UserDataRepository = dataRepository
+    @Binds
+    abstract fun bindsDataRepository(dataRepository: UserDataRepositoryImpl): UserDataRepository
+
+    @Binds
+    abstract fun bindsTestResults(testResultRepository: TestResultRepositoryImpl): TestResultRepository
 
 }

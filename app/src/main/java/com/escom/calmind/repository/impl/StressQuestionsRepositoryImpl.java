@@ -6,9 +6,11 @@ import com.escom.calmind.R;
 import com.escom.calmind.repository.StressQuestionsRepository;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import dagger.hilt.android.qualifiers.ApplicationContext;
 
+@Singleton
 public class StressQuestionsRepositoryImpl implements StressQuestionsRepository {
 
     private final Context context;

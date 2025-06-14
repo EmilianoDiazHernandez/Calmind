@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
@@ -14,6 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.escom.calmind.ui.composable.CongratulationDialog
 import com.escom.calmind.ui.composable.SplashScreen
 import com.escom.calmind.ui.composable.TestScreen
 import com.escom.calmind.ui.composable.welcome.WelcomeScreen
@@ -22,6 +24,7 @@ import com.escom.calmind.ui.screen.SplashScreen
 import com.escom.calmind.ui.screen.TestScreen
 import com.escom.calmind.ui.screen.WelcomeScreen
 import com.escom.calmind.ui.theme.CalmindTheme
+import com.escom.calmind.ui.viewmodel.LoginViewModel
 import com.escom.calmind.ui.viewmodel.StressQuestionsViewModel
 import com.escom.calmind.ui.viewmodel.WelcomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,16 +83,28 @@ class MainActivity : ComponentActivity() {
                             val currentQuestion by testViewModel.currentQuestion.observeAsState(
                                 String()
                             )
-                            val currentUser by testViewModel.userDataLiveData.observeAsState(null)
                             val isTestFinished by testViewModel.isFinished.observeAsState(false)
                             TestScreen(
                                 currentQuestion = currentQuestion,
-                                onQuestionAnswered = testViewModel::onQuestionAnswered,
-                                currentUser = currentUser,
-                                onTestResultsAvailable = testViewModel::getTestResult,
-                                isTestFinished = isTestFinished,
-                                onConfirmDialog = {}
+                                onQuestionAnswered = testViewModel::onQuestionAnswered
                             )
+                            if (isTestFinished) {
+                                val loginViewModel = hiltViewModel<LoginViewModel>()
+                                val pageState = rememberPagerState(pageCount = { 5 })
+                                val currentUser by loginViewModel.currentUser.observeAsState()
+                                val testResult by loginViewModel.testResult.observeAsState()
+                                CongratulationDialog(
+                                    testResult = testResult,
+                                    currentUser = currentUser,
+                                    onConfirmDialog = loginViewModel::singUp,
+                                    pageState = pageState,
+                                    email = loginViewModel.email,
+                                    onEmailChange = loginViewModel::email::set,
+                                    password = loginViewModel.password,
+                                    onPasswordChange = loginViewModel::password::set,
+                                    isLoading = loginViewModel.isLoading
+                                )
+                            }
                         }
                         composable<LoginScreen> {
                             Text("Login")

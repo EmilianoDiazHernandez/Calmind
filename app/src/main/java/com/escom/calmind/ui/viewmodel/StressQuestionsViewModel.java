@@ -8,9 +8,8 @@ import com.escom.calmind.model.ResilienceResult;
 import com.escom.calmind.model.StressResult;
 import com.escom.calmind.model.TestResult;
 import com.escom.calmind.model.TraumaResult;
-import com.escom.calmind.model.UserData;
 import com.escom.calmind.repository.StressQuestionsRepository;
-import com.escom.calmind.repository.UserDataRepository;
+import com.escom.calmind.repository.TestResultRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +22,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class StressQuestionsViewModel extends ViewModel {
 
     private final List<String> questions;
+    private final TestResultRepository testResultsRepository;
     private int currentIndex = 0;
 
     private final MutableLiveData<String> currentQuestion = new MutableLiveData<>();
@@ -30,14 +30,13 @@ public class StressQuestionsViewModel extends ViewModel {
     private Integer stress = 0; // 0-10 low | 11-25 medium | 26-30 high
     private Integer resilience = 0; // 0-20 low | 21-30 medium | 31-40 high
     private Integer trauma = 0; // 0–30 No TEPT | 31–33 Possible TEPT | 34: highly possibility TEPT
-    public LiveData<UserData> userDataLiveData;
 
     @Inject
     public StressQuestionsViewModel(
             StressQuestionsRepository stressRepository,
-            UserDataRepository userDataRepository
+            TestResultRepository testResultRepository
     ) {
-        this.userDataLiveData = userDataRepository.getData();
+        this.testResultsRepository = testResultRepository;
         this.questions = Arrays.asList(stressRepository.getAll());
         if (!questions.isEmpty())
             currentQuestion.setValue(questions.get(0));
@@ -63,7 +62,7 @@ public class StressQuestionsViewModel extends ViewModel {
         return StressResult.HIGH;
     }
 
-    public TestResult getTestResult() {
+    private TestResult getTestResult() {
         return new TestResult(getStress(), getResilience(), getTraumaResult());
     }
 
@@ -88,8 +87,10 @@ public class StressQuestionsViewModel extends ViewModel {
 
         if (currentIndex < questions.size())
             currentQuestion.setValue(questions.get(currentIndex));
-        else
+        else {
+            testResultsRepository.set(getTestResult());
             finished.setValue(true);
+        }
     }
 
 }
