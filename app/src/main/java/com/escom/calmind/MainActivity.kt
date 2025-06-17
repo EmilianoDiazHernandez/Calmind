@@ -17,6 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.escom.calmind.model.TestResult
 import com.escom.calmind.ui.composable.CongratulationDialog
 import com.escom.calmind.ui.composable.SplashScreen
 import com.escom.calmind.ui.composable.TestScreen
@@ -30,6 +31,7 @@ import com.escom.calmind.ui.theme.CalmindTheme
 import com.escom.calmind.ui.viewmodel.LoginViewModel
 import com.escom.calmind.ui.viewmodel.StressQuestionsViewModel
 import com.escom.calmind.ui.viewmodel.WelcomeViewModel
+import com.escom.calmind.utils.toRoute
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -93,16 +95,20 @@ class MainActivity : ComponentActivity() {
                             )
                             if (isTestFinished)
                                 navController.navigate(
-                                    CongratulationDialog(testViewModel.testResult)
+                                    testViewModel.testResult.toRoute()
                                 )
                         }
                         dialog<CongratulationDialog> { backStackEntry ->
-                            val congratulationDialog = backStackEntry.toRoute<CongratulationDialog>()
+                            val congratulationDialog =
+                                backStackEntry.toRoute<CongratulationDialog>()
+                            val testResult = with(congratulationDialog) {
+                                TestResult(stressResult, resilienceResult, traumaResult)
+                            }
                             val loginViewModel = hiltViewModel<LoginViewModel>()
                             val pageState = rememberPagerState(pageCount = { 5 })
                             val currentUser by loginViewModel.currentUser.observeAsState()
                             CongratulationDialog(
-                                testResult = congratulationDialog.testResult,
+                                testResult = testResult,
                                 currentUser = currentUser,
                                 onConfirmDialog = loginViewModel::singUp,
                                 pageState = pageState,
