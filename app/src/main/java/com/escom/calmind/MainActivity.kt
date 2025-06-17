@@ -14,15 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.escom.calmind.ui.composable.CongratulationDialog
 import com.escom.calmind.ui.composable.SplashScreen
 import com.escom.calmind.ui.composable.TestScreen
 import com.escom.calmind.ui.composable.welcome.WelcomeScreen
-import com.escom.calmind.ui.screen.LoginScreen
-import com.escom.calmind.ui.screen.SplashScreen
-import com.escom.calmind.ui.screen.TestScreen
-import com.escom.calmind.ui.screen.WelcomeScreen
+import com.escom.calmind.ui.route.CongratulationDialog
+import com.escom.calmind.ui.route.LoginScreen
+import com.escom.calmind.ui.route.SplashScreen
+import com.escom.calmind.ui.route.TestScreen
+import com.escom.calmind.ui.route.WelcomeScreen
 import com.escom.calmind.ui.theme.CalmindTheme
 import com.escom.calmind.ui.viewmodel.LoginViewModel
 import com.escom.calmind.ui.viewmodel.StressQuestionsViewModel
@@ -88,23 +91,27 @@ class MainActivity : ComponentActivity() {
                                 currentQuestion = currentQuestion,
                                 onQuestionAnswered = testViewModel::onQuestionAnswered
                             )
-                            if (isTestFinished) {
-                                val loginViewModel = hiltViewModel<LoginViewModel>()
-                                val pageState = rememberPagerState(pageCount = { 5 })
-                                val currentUser by loginViewModel.currentUser.observeAsState()
-                                val testResult by loginViewModel.testResult.observeAsState()
-                                CongratulationDialog(
-                                    testResult = testResult,
-                                    currentUser = currentUser,
-                                    onConfirmDialog = loginViewModel::singUp,
-                                    pageState = pageState,
-                                    email = loginViewModel.email,
-                                    onEmailChange = loginViewModel::email::set,
-                                    password = loginViewModel.password,
-                                    onPasswordChange = loginViewModel::password::set,
-                                    isLoading = loginViewModel.isLoading
+                            if (isTestFinished)
+                                navController.navigate(
+                                    CongratulationDialog(testViewModel.testResult)
                                 )
-                            }
+                        }
+                        dialog<CongratulationDialog> { backStackEntry ->
+                            val congratulationDialog = backStackEntry.toRoute<CongratulationDialog>()
+                            val loginViewModel = hiltViewModel<LoginViewModel>()
+                            val pageState = rememberPagerState(pageCount = { 5 })
+                            val currentUser by loginViewModel.currentUser.observeAsState()
+                            CongratulationDialog(
+                                testResult = congratulationDialog.testResult,
+                                currentUser = currentUser,
+                                onConfirmDialog = loginViewModel::singUp,
+                                pageState = pageState,
+                                email = loginViewModel.email,
+                                onEmailChange = loginViewModel::email::set,
+                                password = loginViewModel.password,
+                                onPasswordChange = loginViewModel::password::set,
+                                isLoading = loginViewModel.isLoading
+                            )
                         }
                         composable<LoginScreen> {
                             Text("Login")

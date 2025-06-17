@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.escom.calmind.repository.TestResultRepository
 import com.escom.calmind.repository.UserDataRepository
 import com.escom.calmind.service.AuthService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +14,6 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     userDataRepository: UserDataRepository,
-    testResultsRepository: TestResultRepository,
     private val authService: AuthService
 ) : ViewModel() {
 
@@ -24,7 +22,6 @@ class LoginViewModel @Inject constructor(
     private var _isLoading by mutableStateOf(false)
     val isLoading = _isLoading
 
-    val testResult = testResultsRepository.get()
     val currentUser = userDataRepository.get()
 
     fun singUp() {

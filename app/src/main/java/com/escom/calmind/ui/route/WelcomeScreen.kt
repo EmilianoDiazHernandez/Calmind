@@ -1,4 +1,4 @@
-package com.escom.calmind.ui.screen
+package com.escom.calmind.ui.route
 
 import kotlinx.serialization.Serializable
 

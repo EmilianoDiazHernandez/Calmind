@@ -9,7 +9,6 @@ import com.escom.calmind.model.StressResult;
 import com.escom.calmind.model.TestResult;
 import com.escom.calmind.model.TraumaResult;
 import com.escom.calmind.repository.StressQuestionsRepository;
-import com.escom.calmind.repository.TestResultRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +21,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class StressQuestionsViewModel extends ViewModel {
 
     private final List<String> questions;
-    private final TestResultRepository testResultsRepository;
     private int currentIndex = 0;
 
     private final MutableLiveData<String> currentQuestion = new MutableLiveData<>();
@@ -33,10 +31,8 @@ public class StressQuestionsViewModel extends ViewModel {
 
     @Inject
     public StressQuestionsViewModel(
-            StressQuestionsRepository stressRepository,
-            TestResultRepository testResultRepository
+            StressQuestionsRepository stressRepository
     ) {
-        this.testResultsRepository = testResultRepository;
         this.questions = Arrays.asList(stressRepository.getAll());
         if (!questions.isEmpty())
             currentQuestion.setValue(questions.get(0));
@@ -62,7 +58,7 @@ public class StressQuestionsViewModel extends ViewModel {
         return StressResult.HIGH;
     }
 
-    private TestResult getTestResult() {
+    public TestResult getTestResult() {
         return new TestResult(getStress(), getResilience(), getTraumaResult());
     }
 
@@ -88,7 +84,6 @@ public class StressQuestionsViewModel extends ViewModel {
         if (currentIndex < questions.size())
             currentQuestion.setValue(questions.get(currentIndex));
         else {
-            testResultsRepository.set(getTestResult());
             finished.setValue(true);
         }
     }

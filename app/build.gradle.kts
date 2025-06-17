@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.googleServices)
     alias(libs.plugins.crashlytics)
     id("com.google.dagger.hilt.android")
+    id("kotlin-parcelize")
     kotlin("kapt")
 }
 
