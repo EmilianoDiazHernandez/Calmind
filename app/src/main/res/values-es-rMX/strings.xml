@@ -92,4 +92,5 @@
     <string name="email">Correo eléctronico</string>
     <string name="password">Contraseña</string>
     <string name="change_password_visibility">Change password visibility</string>
+    <string name="unknown_error">Something went wrong, please try again</string>
 </resources>

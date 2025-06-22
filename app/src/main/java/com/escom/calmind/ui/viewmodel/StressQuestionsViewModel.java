@@ -24,7 +24,6 @@ public class StressQuestionsViewModel extends ViewModel {
     private int currentIndex = 0;
 
     private final MutableLiveData<String> currentQuestion = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> finished = new MutableLiveData<>(false);
     private Integer stress = 0; // 0-10 low | 11-25 medium | 26-30 high
     private Integer resilience = 0; // 0-20 low | 21-30 medium | 31-40 high
     private Integer trauma = 0; // 0–30 No TEPT | 31–33 Possible TEPT | 34: highly possibility TEPT
@@ -34,10 +33,7 @@ public class StressQuestionsViewModel extends ViewModel {
             StressQuestionsRepository stressRepository
     ) {
         this.questions = Arrays.asList(stressRepository.getAll());
-        if (!questions.isEmpty())
-            currentQuestion.setValue(questions.get(0));
-        else
-            finished.setValue(true);
+        currentQuestion.setValue(questions.get(0));
     }
 
     private TraumaResult getTraumaResult() {
@@ -66,11 +62,7 @@ public class StressQuestionsViewModel extends ViewModel {
         return currentQuestion;
     }
 
-    public LiveData<Boolean> isFinished() {
-        return finished;
-    }
-
-    public void onQuestionAnswered(int answer) {
+    public void onQuestionAnswered(int answer, Runnable onTestFinished) {
 
         if (currentIndex < 14) {
             stress += answer;
@@ -84,7 +76,7 @@ public class StressQuestionsViewModel extends ViewModel {
         if (currentIndex < questions.size())
             currentQuestion.setValue(questions.get(currentIndex));
         else {
-            finished.setValue(true);
+            onTestFinished.run();
         }
     }
 

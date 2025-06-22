@@ -5,9 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.escom.calmind.model.SingUpResult
+import com.escom.calmind.model.User
 import com.escom.calmind.repository.UserDataRepository
 import com.escom.calmind.service.AuthService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,17 +22,31 @@ class LoginViewModel @Inject constructor(
 
     var email by mutableStateOf(String())
     var password by mutableStateOf(String())
-    private var _isLoading by mutableStateOf(false)
-    val isLoading = _isLoading
+    var isLoading by mutableStateOf(false)
+        private set
+    var isError by mutableStateOf(false)
+        private set
+    var isWeakPassword by mutableStateOf(false)
+        private set
 
     val currentUser = userDataRepository.get()
 
-    fun singUp() {
-        _isLoading = true
+    fun singUp(onSuccess: (User) -> Unit, onUserExist: (email: String, password: String) -> Unit) {
+        isLoading = true
         viewModelScope.launch {
-            authService.singUp(email, password)
-            _isLoading = false
+            delay(1000L)
+            when(val result = authService.singUp(email, password)) {
+                is SingUpResult.Success -> onSuccess(result.user)
+                is SingUpResult.UnknownError -> isError = true
+                is SingUpResult.UserAlreadyExist -> onUserExist(result.email, result.password)
+                SingUpResult.WeakPassword -> isWeakPassword = true
+            }
+            isLoading = false
         }
+    }
+
+    fun singIn() {
+
     }
 
 }

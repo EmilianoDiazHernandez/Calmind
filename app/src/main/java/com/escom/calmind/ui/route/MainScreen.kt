@@ -3,4 +3,4 @@ package com.escom.calmind.ui.route
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LoginScreen(val email: String? = null, val password: String? = null)
+data class MainScreen(val userName: String)

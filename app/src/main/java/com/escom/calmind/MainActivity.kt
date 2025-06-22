@@ -1,37 +1,20 @@
 package com.escom.calmind
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.dialog
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
-import com.escom.calmind.model.TestResult
-import com.escom.calmind.ui.composable.CongratulationDialog
-import com.escom.calmind.ui.composable.SplashScreen
-import com.escom.calmind.ui.composable.TestScreen
-import com.escom.calmind.ui.composable.welcome.WelcomeScreen
-import com.escom.calmind.ui.route.CongratulationDialog
-import com.escom.calmind.ui.route.LoginScreen
 import com.escom.calmind.ui.route.SplashScreen
-import com.escom.calmind.ui.route.TestScreen
-import com.escom.calmind.ui.route.WelcomeScreen
+import com.escom.calmind.ui.route.buildGraph
 import com.escom.calmind.ui.theme.CalmindTheme
-import com.escom.calmind.ui.viewmodel.LoginViewModel
-import com.escom.calmind.ui.viewmodel.StressQuestionsViewModel
-import com.escom.calmind.ui.viewmodel.WelcomeViewModel
-import com.escom.calmind.utils.toRoute
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,85 +26,18 @@ class MainActivity : ComponentActivity() {
         setContent {
             CalmindTheme(dynamicColor = false) {
                 val navController = rememberNavController()
-                Scaffold {
+                Scaffold(
+                    topBar = {
+                        val currentRoute by navController.currentBackStackEntryAsState()
+                        Log.i("current route", currentRoute?.id.orEmpty())
+                    }
+                ) {
                     NavHost(
                         modifier = Modifier.padding(it),
                         navController = navController,
                         startDestination = SplashScreen
                     ) {
-                        composable<SplashScreen> {
-                            SplashScreen { isFirstTime ->
-                                navController.navigate(
-                                    if (isFirstTime)
-                                        WelcomeScreen
-                                    else
-                                        LoginScreen
-                                ) {
-                                    popUpTo(SplashScreen) { inclusive = true }
-                                }
-                            }
-                        }
-                        composable<WelcomeScreen> {
-                            val welcomeViewModel = hiltViewModel<WelcomeViewModel>()
-                            WelcomeScreen(
-                                name = welcomeViewModel.name,
-                                onNameChange = welcomeViewModel::name::set,
-                                selectedHobbies = welcomeViewModel.hobbies,
-                                onCheckHobby = { hobby -> welcomeViewModel.hobbies.add(hobby) },
-                                onUncheckHobby = { hobby -> welcomeViewModel.hobbies.remove(hobby) },
-                                schooling = welcomeViewModel.schooling,
-                                onChangeSchooling = welcomeViewModel::schooling::set,
-                                age = welcomeViewModel.age,
-                                onAgeChange = welcomeViewModel::age::set,
-                                onClickStartButton = {
-                                    welcomeViewModel.onStart()
-                                    navController.navigate(TestScreen) {
-                                        popUpTo<WelcomeScreen> {
-                                            inclusive = true
-                                        }
-                                    }
-                                }
-                            )
-                        }
-                        composable<TestScreen> {
-                            val testViewModel = hiltViewModel<StressQuestionsViewModel>()
-                            val currentQuestion by testViewModel.currentQuestion.observeAsState(
-                                String()
-                            )
-                            val isTestFinished by testViewModel.isFinished.observeAsState(false)
-                            TestScreen(
-                                currentQuestion = currentQuestion,
-                                onQuestionAnswered = testViewModel::onQuestionAnswered
-                            )
-                            if (isTestFinished)
-                                navController.navigate(
-                                    testViewModel.testResult.toRoute()
-                                )
-                        }
-                        dialog<CongratulationDialog> { backStackEntry ->
-                            val congratulationDialog =
-                                backStackEntry.toRoute<CongratulationDialog>()
-                            val testResult = with(congratulationDialog) {
-                                TestResult(stressResult, resilienceResult, traumaResult)
-                            }
-                            val loginViewModel = hiltViewModel<LoginViewModel>()
-                            val pageState = rememberPagerState(pageCount = { 5 })
-                            val currentUser by loginViewModel.currentUser.observeAsState()
-                            CongratulationDialog(
-                                testResult = testResult,
-                                currentUser = currentUser,
-                                onConfirmDialog = loginViewModel::singUp,
-                                pageState = pageState,
-                                email = loginViewModel.email,
-                                onEmailChange = loginViewModel::email::set,
-                                password = loginViewModel.password,
-                                onPasswordChange = loginViewModel::password::set,
-                                isLoading = loginViewModel.isLoading
-                            )
-                        }
-                        composable<LoginScreen> {
-                            Text("Login")
-                        }
+                        buildGraph(navController)
                     }
                 }
             }

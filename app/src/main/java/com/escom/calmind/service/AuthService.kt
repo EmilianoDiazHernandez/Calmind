@@ -1,9 +1,13 @@
 package com.escom.calmind.service
 
-import com.escom.calmind.model.LoginResult
-import com.google.firebase.auth.AuthResult
+import com.escom.calmind.model.SingInResult
+import com.escom.calmind.model.SingUpResult
+import com.escom.calmind.model.User
 
 interface AuthService {
-    suspend fun singUp(email: String, password: String): AuthResult?
-    suspend fun singIn(email: String, password: String): LoginResult
+
+    suspend fun singUp(email: String, password: String): SingUpResult
+    suspend fun singIn(email: String, password: String): SingInResult
+    val currentUser: User?
+
 }
