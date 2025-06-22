@@ -10,7 +10,6 @@ import com.escom.calmind.model.TestResult;
 import com.escom.calmind.model.TraumaResult;
 import com.escom.calmind.repository.StressQuestionsRepository;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,7 +31,7 @@ public class StressQuestionsViewModel extends ViewModel {
     public StressQuestionsViewModel(
             StressQuestionsRepository stressRepository
     ) {
-        this.questions = Arrays.asList(stressRepository.getAll());
+        this.questions = stressRepository.getAll();
         currentQuestion.setValue(questions.get(0));
     }
 

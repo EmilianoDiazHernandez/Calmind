@@ -12,7 +12,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
+import com.escom.calmind.R
 import com.escom.calmind.model.TestResult
+import com.escom.calmind.model.TopBarTitle
 import com.escom.calmind.ui.composable.CongratulationDialog
 import com.escom.calmind.ui.composable.SplashScreen
 import com.escom.calmind.ui.composable.TestScreen
@@ -24,20 +26,19 @@ import com.escom.calmind.ui.viewmodel.WelcomeViewModel
 import com.escom.calmind.utils.UpdateIsFirstTime
 import com.escom.calmind.utils.toRoute
 
-fun NavGraphBuilder.buildGraph(navController: NavController) {
+fun NavGraphBuilder.buildGraph(navController: NavController, onNavigate: (TopBarTitle) -> Unit) {
     composable<SplashScreen> {
         val splashViewModel = hiltViewModel<SplashScreenViewModel>()
-        val userExist by splashViewModel.thereIsAnyUser.collectAsState()
+        val userExist by splashViewModel.currentUser.collectAsState()
         SplashScreen { isFirstTime ->
             navController.navigate(
                 if (isFirstTime)
                     WelcomeScreen
-                else {
-                    if (userExist)
-                        MainScreen("")
-                    else
-                        LoginScreen()
-                }
+                else
+                    userExist?.let {
+                        onNavigate(TopBarTitle(R.string.greeting_user, it.displayName.orEmpty()))
+                        MainScreen
+                    } ?: LoginScreen()
             ) {
                 popUpTo(SplashScreen) { inclusive = true }
             }
@@ -65,9 +66,7 @@ fun NavGraphBuilder.buildGraph(navController: NavController) {
     }
     composable<TestScreen> {
         val testViewModel = hiltViewModel<StressQuestionsViewModel>()
-        val currentQuestion by testViewModel.currentQuestion.observeAsState(
-            String()
-        )
+        val currentQuestion by testViewModel.currentQuestion.observeAsState(String())
         TestScreen(
             currentQuestion = currentQuestion,
             onQuestionAnswered = {
@@ -99,7 +98,13 @@ fun NavGraphBuilder.buildGraph(navController: NavController) {
             onConfirmDialog = {
                 loginViewModel.singUp(
                     onSuccess = { newUser ->
-                        navController.navigate(MainScreen(newUser.displayName.orEmpty())) {
+                        onNavigate(
+                            TopBarTitle(
+                                R.string.greeting_user,
+                                newUser.displayName.orEmpty()
+                            )
+                        )
+                        navController.navigate(MainScreen) {
                             popUpTo<CongratulationDialog> { inclusive = true }
                         }
                     },

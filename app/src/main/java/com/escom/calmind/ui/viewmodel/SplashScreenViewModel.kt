@@ -9,6 +9,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashScreenViewModel @Inject constructor(authService: AuthService) : ViewModel() {
-    private val _thereIsAnyUser = MutableStateFlow(authService.currentUser != null)
-    val thereIsAnyUser = _thereIsAnyUser.asStateFlow()
+    private val _currentUser = MutableStateFlow(authService.currentUser)
+    val currentUser = _currentUser.asStateFlow()
 }

@@ -91,6 +91,7 @@
     <string name="create_account">¡Creemos una cuenta!</string>
     <string name="email">Correo eléctronico</string>
     <string name="password">Contraseña</string>
-    <string name="change_password_visibility">Change password visibility</string>
-    <string name="unknown_error">Something went wrong, please try again</string>
+    <string name="change_password_visibility">Ver contraseña</string>
+    <string name="unknown_error">Algo salió mal, por favor intenta de nuevo</string>
+    <string name="greeting_user">Bienvenido!</string>
 </resources>
