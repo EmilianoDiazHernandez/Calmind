@@ -1,10 +1,11 @@
 package com.escom.calmind.ui.composable
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,17 +25,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escom.calmind.R
 import com.escom.calmind.model.UserData
+import com.escom.calmind.ui.composable.components.CardButton
 import com.escom.calmind.ui.theme.CalmindTheme
 
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier, userData: UserData) {
+fun MainScreen(
+    modifier: Modifier = Modifier,
+    userData: UserData,
+    onClickGratitudeJournalScreen: () -> Unit,
+    onClickMeditationScreen: () -> Unit
+) {
 
     Column(
         modifier = modifier.fillMaxSize(),
@@ -51,34 +58,56 @@ fun MainScreen(modifier: Modifier = Modifier, userData: UserData) {
                 .fillMaxSize()
                 .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 24.dp),
-                verticalAlignment = Alignment.Top,
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                Icon(imageVector = Icons.Outlined.Star, contentDescription = null)
+            Column(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    stringResource(R.string.progress, userData.gratitudeDays),
-                    style = MaterialTheme.typography.bodyMedium
+                    stringResource(R.string.gratitude_journal_description),
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(12.dp),
+                    textAlign = TextAlign.Justify
                 )
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                Box(modifier = Modifier.clip(RectangleShape)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(imageVector = Icons.Outlined.BorderColor, contentDescription = null)
-                        Text(stringResource(R.string.gratitude_journal))
-                    }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 24.dp),
+                    verticalAlignment = Alignment.Top,
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Icon(imageVector = Icons.Outlined.Star, contentDescription = null)
+                    Text(
+                        stringResource(R.string.progress, userData.gratitudeDays),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
                 }
-                Box(modifier = Modifier.clip(RectangleShape)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(imageVector = Icons.Outlined.Lightbulb, contentDescription = null)
-                        Text(stringResource(R.string.meditation))
+                Spacer(modifier = Modifier.height(24.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Max),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    CardButton(
+                        modifier = Modifier.fillMaxHeight(),
+                        onClick = onClickGratitudeJournalScreen,
+                        imageVector = Icons.Outlined.BorderColor,
+                        painterResourceId = R.drawable.meditation
+                    ) {
+                        Text(
+                            text = stringResource(R.string.gratitude_journal),
+                            maxLines = 2,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                    CardButton(
+                        modifier = Modifier.fillMaxHeight(),
+                        onClick = onClickMeditationScreen,
+                        imageVector = Icons.Outlined.Lightbulb,
+                        painterResourceId = R.drawable.meditation
+                    ) {
+                        Text(
+                            text = stringResource(R.string.meditation),
+                            maxLines = 1,
+                            textAlign = TextAlign.Center
+                        )
                     }
                 }
             }
@@ -87,7 +116,7 @@ fun MainScreen(modifier: Modifier = Modifier, userData: UserData) {
 }
 
 @Preview(
-    device = "spec:width=1080px,height=2340px,dpi=440,isRound=true", showSystemUi = true,
+    device = "spec:width=1080px,height=2340px,dpi=440", showSystemUi = true,
     showBackground = true
 )
 @Composable
@@ -100,7 +129,9 @@ fun MainScreenPreview() {
                 hobbies = emptyList(),
                 schooling = "Secondary School",
                 gratitudeDays = 15
-            )
+            ),
+            onClickGratitudeJournalScreen = {},
+            onClickMeditationScreen = {}
         )
     }
 }

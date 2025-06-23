@@ -97,6 +97,7 @@
     <string name="go_back">Regresar</string>
     <string name="progress">Progreso: %d días</string>
     <string name="look_for_an_article">Let\'s look up a new article!</string>
-    <string name="gratitude_journal">Gratitude Journal</string>
-    <string name="meditation">Meditation</string>
+    <string name="gratitude_journal">Diario de\nGratitud</string>
+    <string name="meditation">Meditación</string>
+    <string name="gratitude_journal_description">Every time you write in your gratitude journal, you add to your streak of days, allowing you to unlock fun games. Gratitude is associated with increased happiness, reduced depressive symptoms, and greater overall well-being.\\n\nFeel free to write</string>
 </resources>

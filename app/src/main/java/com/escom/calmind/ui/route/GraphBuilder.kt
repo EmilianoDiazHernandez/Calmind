@@ -1,6 +1,7 @@
 package com.escom.calmind.ui.route
 
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -140,7 +141,18 @@ fun NavGraphBuilder.buildGraph(
         mainViewModel.retrieveUserById(userId)
         currentUser?.let {
             onUpdateTopBar(TopBarTitle(R.string.welcome, it.name))
-            MainScreen(userData = it)
+            MainScreen(
+                userData = it,
+                onClickGratitudeJournalScreen = {
+                    navController.navigate(GratitudeJournalScreen(userId))
+                },
+                onClickMeditationScreen = {
+
+                }
+            )
         } ?: LoadingFullScreen()
+    }
+    composable<GratitudeJournalScreen> {
+        CircularProgressIndicator()
     }
 }
