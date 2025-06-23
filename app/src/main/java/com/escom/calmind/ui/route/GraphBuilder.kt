@@ -16,17 +16,23 @@ import com.escom.calmind.R
 import com.escom.calmind.model.TestResult
 import com.escom.calmind.model.TopBarTitle
 import com.escom.calmind.ui.composable.CongratulationDialog
+import com.escom.calmind.ui.composable.LoadingFullScreen
+import com.escom.calmind.ui.composable.MainScreen
 import com.escom.calmind.ui.composable.SplashScreen
 import com.escom.calmind.ui.composable.TestScreen
 import com.escom.calmind.ui.composable.welcome.WelcomeScreen
 import com.escom.calmind.ui.viewmodel.LoginViewModel
+import com.escom.calmind.ui.viewmodel.MainViewModel
 import com.escom.calmind.ui.viewmodel.SplashScreenViewModel
 import com.escom.calmind.ui.viewmodel.StressQuestionsViewModel
 import com.escom.calmind.ui.viewmodel.WelcomeViewModel
 import com.escom.calmind.utils.UpdateIsFirstTime
 import com.escom.calmind.utils.toRoute
 
-fun NavGraphBuilder.buildGraph(navController: NavController, onNavigate: (TopBarTitle) -> Unit) {
+fun NavGraphBuilder.buildGraph(
+    navController: NavController,
+    onUpdateTopBar: (TopBarTitle) -> Unit
+) {
     composable<SplashScreen> {
         val splashViewModel = hiltViewModel<SplashScreenViewModel>()
         val userExist by splashViewModel.currentUser.collectAsState()
@@ -35,10 +41,7 @@ fun NavGraphBuilder.buildGraph(navController: NavController, onNavigate: (TopBar
                 if (isFirstTime)
                     WelcomeScreen
                 else
-                    userExist?.let {
-                        onNavigate(TopBarTitle(R.string.greeting_user, it.displayName.orEmpty()))
-                        MainScreen
-                    } ?: LoginScreen()
+                    userExist?.let { Main(it) } ?: LoginScreen()
             ) {
                 popUpTo(SplashScreen) { inclusive = true }
             }
@@ -97,19 +100,15 @@ fun NavGraphBuilder.buildGraph(navController: NavController, onNavigate: (TopBar
             currentUser = currentUserData,
             onConfirmDialog = {
                 loginViewModel.singUp(
-                    onSuccess = { newUser ->
-                        onNavigate(
-                            TopBarTitle(
-                                R.string.greeting_user,
-                                newUser.displayName.orEmpty()
-                            )
-                        )
-                        navController.navigate(MainScreen) {
+                    onSuccess = { newUserId ->
+                        navController.navigate(Main(newUserId)) {
                             popUpTo<CongratulationDialog> { inclusive = true }
                         }
                     },
                     onUserExist = { email, password ->
-                        navController.navigate(LoginScreen(email, password))
+                        navController.navigate(LoginScreen(email, password)) {
+                            popUpTo<CongratulationDialog> { inclusive = true }
+                        }
                     }
                 )
             },
@@ -133,8 +132,15 @@ fun NavGraphBuilder.buildGraph(navController: NavController, onNavigate: (TopBar
         }
         Text("Login")
     }
-    composable<MainScreen> {
+    composable<Main> { backStackEntry ->
         UpdateIsFirstTime()
-        Text("Main Screen")
+        val userId = backStackEntry.toRoute<Main>().userId
+        val mainViewModel = hiltViewModel<MainViewModel>()
+        val currentUser by mainViewModel.currentUser.collectAsState()
+        mainViewModel.retrieveUserById(userId)
+        currentUser?.let {
+            onUpdateTopBar(TopBarTitle(R.string.welcome, it.name))
+            MainScreen(userData = it)
+        } ?: LoadingFullScreen()
     }
 }

@@ -92,4 +92,9 @@
     <string name="change_password_visibility">Change password visibility</string>
     <string name="unknown_error">Something went wrong, please try again</string>
     <string name="greeting_user">Welcome!</string>
+    <string name="go_back">Go back</string>
+    <string name="progress">Progress: %d days</string>
+    <string name="look_for_an_article">Let\'s look up a new article!</string>
+    <string name="gratitude_journal">Gratitude Journal</string>
+    <string name="meditation">Meditation</string>
 </resources>

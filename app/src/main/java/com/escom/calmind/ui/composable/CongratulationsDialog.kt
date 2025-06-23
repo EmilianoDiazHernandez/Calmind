@@ -21,6 +21,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -63,153 +64,155 @@ fun CongratulationDialog(
     isError: Boolean,
     isWeakPassword: Boolean
 ) {
-    Column {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 24.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceContainerLow
-            )
-        ) {
-            val testResults = checkNotNull(testResult)
-            Text(
-                text = stringResource(R.string.congratulations),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
+    Surface {
+        Column {
+            Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
-            )
-            Text(
-                currentUser?.name.orEmpty(),
-                style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            PagerLabel(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(),
-                pagerState = pageState
-            )
-            HorizontalPager(
-                state = pageState,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                verticalAlignment = if (pageState.currentPage != pageState.pageCount - 1)
-                    Alignment.CenterVertically
-                else
-                    Alignment.Top
-            ) { page ->
-                val messageId: Int by remember {
-                    derivedStateOf {
-                        when (page) {
-                            0 -> R.string.message_successfully
-                            1 -> when (testResults.stressResult!!) {
-                                StressResult.LOW -> R.string.stress_low
-                                StressResult.MIDDLE -> R.string.stress_medium
-                                StressResult.HIGH -> R.string.stress_high
-                            }
+                    .padding(vertical = 24.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+                )
+            ) {
+                val testResults = checkNotNull(testResult)
+                Text(
+                    text = stringResource(R.string.congratulations),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                )
+                Text(
+                    currentUser?.name.orEmpty(),
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                PagerLabel(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    pagerState = pageState
+                )
+                HorizontalPager(
+                    state = pageState,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    verticalAlignment = if (pageState.currentPage != pageState.pageCount - 1)
+                        Alignment.CenterVertically
+                    else
+                        Alignment.Top
+                ) { page ->
+                    val messageId: Int by remember {
+                        derivedStateOf {
+                            when (page) {
+                                0 -> R.string.message_successfully
+                                1 -> when (testResults.stressResult!!) {
+                                    StressResult.LOW -> R.string.stress_low
+                                    StressResult.MIDDLE -> R.string.stress_medium
+                                    StressResult.HIGH -> R.string.stress_high
+                                }
 
-                            2 -> when (testResults.resilienceResult!!) {
-                                ResilienceResult.LOW -> R.string.resilience_low
-                                ResilienceResult.MIDDLE -> R.string.resilience_middle
-                                ResilienceResult.HIGH -> R.string.resilience_high
-                            }
+                                2 -> when (testResults.resilienceResult!!) {
+                                    ResilienceResult.LOW -> R.string.resilience_low
+                                    ResilienceResult.MIDDLE -> R.string.resilience_middle
+                                    ResilienceResult.HIGH -> R.string.resilience_high
+                                }
 
-                            3 -> when (testResults.traumaResult!!) {
-                                TraumaResult.NO_PTSD -> R.string.no_ptsd
-                                TraumaResult.PROBABLE_PTSD -> R.string.probable_ptsd
-                                TraumaResult.HIGHLY_PROBABLE_PTSD -> R.string.high_probable_ptsd
-                            }
+                                3 -> when (testResults.traumaResult!!) {
+                                    TraumaResult.NO_PTSD -> R.string.no_ptsd
+                                    TraumaResult.PROBABLE_PTSD -> R.string.probable_ptsd
+                                    TraumaResult.HIGHLY_PROBABLE_PTSD -> R.string.high_probable_ptsd
+                                }
 
-                            else -> R.string.create_account
+                                else -> R.string.create_account
+                            }
                         }
                     }
-                }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = stringResource(messageId),
-                        style = MaterialTheme.typography.bodyLarge,
-                        textAlign = TextAlign.Justify,
-                        modifier = Modifier.padding(horizontal = 8.dp)
-                    )
-                    when (page) {
-                        0 -> {
-                            Icon(
-                                painter = painterResource(R.drawable.swipe),
-                                contentDescription = stringResource(R.string.swipe_right),
-                                modifier = Modifier.padding(vertical = 16.dp)
-                            )
-                        }
-
-                        4 -> {
-                            EmailTextField(
-                                email = email,
-                                onEmailChange = onEmailChange,
-                                keyboardOptions = KeyboardOptions(
-                                    keyboardType = KeyboardType.Email,
-                                    imeAction = ImeAction.Next
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = stringResource(messageId),
+                            style = MaterialTheme.typography.bodyLarge,
+                            textAlign = TextAlign.Justify,
+                            modifier = Modifier.padding(horizontal = 8.dp)
+                        )
+                        when (page) {
+                            0 -> {
+                                Icon(
+                                    painter = painterResource(R.drawable.swipe),
+                                    contentDescription = stringResource(R.string.swipe_right),
+                                    modifier = Modifier.padding(vertical = 16.dp)
                                 )
-                            )
-                            val keyboardController = LocalSoftwareKeyboardController.current
-                            PasswordTextField(
-                                password = password,
-                                onPasswordChange = onPasswordChange,
-                                keyboardOptions = KeyboardOptions(
-                                    keyboardType = KeyboardType.Password,
-                                    imeAction = ImeAction.Send
-                                ),
-                                keyboardActions = KeyboardActions(
-                                    onSend = {
-                                        if (Patterns.EMAIL_ADDRESS.matcher(email)
-                                                .matches() && password.isNotBlank()
-                                            && password.length >= 8
-                                        )
-                                            keyboardController?.hide()
-                                            onConfirmDialog()
-                                    }
-                                ),
-                                isError = isWeakPassword
-                            )
-                            Button(
-                                onClick = onConfirmDialog,
-                                modifier = Modifier.padding(16.dp),
-                                enabled = Patterns.EMAIL_ADDRESS.matcher(email)
-                                    .matches() && password.isNotBlank() && password.length >= 8
-                                        && !isLoading
-                            ) {
-                                if (!isLoading)
-                                    Text(text = stringResource(R.string.go))
-                                else
-                                    CircularProgressIndicator()
                             }
-                            AnimatedVisibility(isError) {
-                                OutlinedCard {
-                                    Text(stringResource(R.string.unknown_error))
+
+                            4 -> {
+                                EmailTextField(
+                                    email = email,
+                                    onEmailChange = onEmailChange,
+                                    keyboardOptions = KeyboardOptions(
+                                        keyboardType = KeyboardType.Email,
+                                        imeAction = ImeAction.Next
+                                    )
+                                )
+                                val keyboardController = LocalSoftwareKeyboardController.current
+                                PasswordTextField(
+                                    password = password,
+                                    onPasswordChange = onPasswordChange,
+                                    keyboardOptions = KeyboardOptions(
+                                        keyboardType = KeyboardType.Password,
+                                        imeAction = ImeAction.Send
+                                    ),
+                                    keyboardActions = KeyboardActions(
+                                        onSend = {
+                                            if (Patterns.EMAIL_ADDRESS.matcher(email)
+                                                    .matches() && password.isNotBlank()
+                                                && password.length >= 8
+                                            )
+                                                keyboardController?.hide()
+                                            onConfirmDialog()
+                                        }
+                                    ),
+                                    isError = isWeakPassword
+                                )
+                                Button(
+                                    onClick = onConfirmDialog,
+                                    modifier = Modifier.padding(16.dp),
+                                    enabled = Patterns.EMAIL_ADDRESS.matcher(email)
+                                        .matches() && password.isNotBlank() && password.length >= 8
+                                            && !isLoading
+                                ) {
+                                    if (!isLoading)
+                                        Text(text = stringResource(R.string.go))
+                                    else
+                                        CircularProgressIndicator()
+                                }
+                                AnimatedVisibility(isError) {
+                                    OutlinedCard {
+                                        Text(stringResource(R.string.unknown_error))
+                                    }
                                 }
                             }
-                        }
 
-                        else -> {
-                            val emojis = listOf("🌻", "☺", "⭐", "🎈", "👑")
-                            Text(
-                                text = emojis.random(),
-                                fontSize = 50.sp,
-                                modifier = Modifier.padding(vertical = 8.dp)
-                            )
+                            else -> {
+                                val emojis = listOf("🌻", "☺", "⭐", "🎈", "👑")
+                                Text(
+                                    text = emojis.random(),
+                                    fontSize = 50.sp,
+                                    modifier = Modifier.padding(vertical = 8.dp)
+                                )
+                            }
                         }
                     }
                 }
-            }
 
+            }
         }
     }
 }

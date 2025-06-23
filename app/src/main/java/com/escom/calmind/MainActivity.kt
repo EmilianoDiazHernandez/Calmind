@@ -32,7 +32,12 @@ class MainActivity : ComponentActivity() {
                 var title: TopBarTitle? by rememberSaveable { mutableStateOf(null) }
                 Scaffold(
                     topBar = {
-                        title?.let { RouteTopAppBar(title = it) }
+                        title?.let {
+                            RouteTopAppBar(
+                                title = it,
+                                onNavigateBack = { navController.popBackStack() }
+                            )
+                        }
                     }
                 ) {
                     NavHost(
@@ -41,8 +46,8 @@ class MainActivity : ComponentActivity() {
                         startDestination = SplashScreen
                     ) {
                         buildGraph(
-                            navController,
-                            onNavigate = { newTitle -> title = newTitle }
+                            navController = navController,
+                            onUpdateTopBar = { newTitle -> title = newTitle }
                         )
                     }
                 }

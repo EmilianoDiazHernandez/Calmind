@@ -1,7 +1,6 @@
 package com.escom.calmind.ui.composable.components
 
 import android.util.Patterns
-/*import androidx.compose.foundation.text.KeyboardActions*/
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -15,8 +14,7 @@ import com.escom.calmind.R
 fun EmailTextField(
     email: String,
     onEmailChange: (String) -> Unit,
-    keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-    /*keyboardActions: KeyboardActions = KeyboardActions {}*/
+    keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
 ) {
     OutlinedTextField(
         value = email, onValueChange = onEmailChange, label = {
@@ -26,7 +24,6 @@ fun EmailTextField(
             )
         },
         keyboardOptions = keyboardOptions,
-        /*keyboardActions = keyboardActions,*/
         singleLine = true,
         isError = email.isNotBlank() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()
     )

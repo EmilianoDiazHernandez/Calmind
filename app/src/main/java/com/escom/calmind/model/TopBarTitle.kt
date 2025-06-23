@@ -1,10 +1,11 @@
 package com.escom.calmind.model
 
+import android.os.Parcelable
 import androidx.annotation.StringRes
-import kotlinx.serialization.Serializable
+import kotlinx.parcelize.Parcelize
 
-@Serializable
+@Parcelize
 data class TopBarTitle(
     @StringRes val titleId: Int,
     val username: String
-)
+) : Parcelable

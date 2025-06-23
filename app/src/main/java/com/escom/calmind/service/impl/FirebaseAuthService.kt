@@ -2,23 +2,28 @@ package com.escom.calmind.service.impl
 
 import com.escom.calmind.model.SingInResult
 import com.escom.calmind.model.SingUpResult
-import com.escom.calmind.model.User
+import com.escom.calmind.model.UserData
 import com.escom.calmind.service.AuthService
-import com.escom.calmind.utils.toDomain
+import com.escom.calmind.utils.USER_COLLECTION
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FirebaseAuthService @Inject constructor(private val auth: FirebaseAuth) : AuthService {
+class FirebaseAuthService @Inject constructor(
+    private val auth: FirebaseAuth,
+    private val db: FirebaseFirestore
+) : AuthService {
 
-    override suspend fun singUp(email: String, password: String): SingUpResult {
+    override suspend fun singUp(data: UserData, email: String, password: String): SingUpResult {
         return try {
             with(auth.createUserWithEmailAndPassword(email, password).await()) {
                 user?.let {
-                    SingUpResult.Success(it.toDomain())
+                    db.collection(USER_COLLECTION).document(it.uid).set(data)
+                    SingUpResult.Success(it.uid)
                 } ?: SingUpResult.UnknownError
             }
         } catch (e: FirebaseAuthException) {
@@ -33,9 +38,7 @@ class FirebaseAuthService @Inject constructor(private val auth: FirebaseAuth) : 
     override suspend fun singIn(email: String, password: String): SingInResult {
         return try {
             with(auth.signInWithEmailAndPassword(email, password).await()) {
-                user?.let {
-                    SingInResult.Success(it.toDomain())
-                } ?: SingInResult.UnknownError
+                user?.let { SingInResult.Success(it.uid) } ?: SingInResult.UnknownError
             }
         } catch (e: FirebaseAuthException) {
             when (e.errorCode) {
@@ -46,6 +49,10 @@ class FirebaseAuthService @Inject constructor(private val auth: FirebaseAuth) : 
         }
     }
 
-    override val currentUser: User?
-        get() = auth.currentUser?.toDomain()
+    override val currentUserId: String?
+        get() = auth.currentUser?.uid
+
+    override suspend fun retrieveUserById(id: String): UserData =
+        db.collection(USER_COLLECTION).document(id).get().await().toObject(UserData::class.java)!!
+
 }

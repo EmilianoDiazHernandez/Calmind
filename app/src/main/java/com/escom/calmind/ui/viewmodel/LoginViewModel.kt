@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.escom.calmind.model.SingInResult
 import com.escom.calmind.model.SingUpResult
-import com.escom.calmind.model.User
 import com.escom.calmind.repository.UserDataRepository
 import com.escom.calmind.service.AuthService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,12 +31,17 @@ class LoginViewModel @Inject constructor(
 
     val currentUser = userDataRepository.get()
 
-    fun singUp(onSuccess: (User) -> Unit, onUserExist: (email: String, password: String) -> Unit) {
+    fun singUp(onSuccess: (String) -> Unit, onUserExist: (email: String, password: String) -> Unit) {
         isLoading = true
         viewModelScope.launch {
             delay(1000L)
-            when(val result = authService.singUp(email, password)) {
-                is SingUpResult.Success -> onSuccess(result.user)
+            when(val result = authService.singUp(currentUser.value!!, email, password)) {
+                is SingUpResult.Success -> {
+                    isError = false
+                    isWeakPassword = false
+                    password = ""
+                    onSuccess(result.userId)
+                }
                 is SingUpResult.UnknownError -> isError = true
                 is SingUpResult.UserAlreadyExist -> onUserExist(result.email, result.password)
                 SingUpResult.WeakPassword -> isWeakPassword = true
@@ -46,7 +51,21 @@ class LoginViewModel @Inject constructor(
     }
 
     fun singIn() {
-
+        isLoading = true
+        viewModelScope.launch {
+            delay(1000L)
+            when(val result = authService.singIn(email, password)) {
+                is SingInResult.Success -> {
+                    isError = false
+                    isWeakPassword = false
+                    password = ""
+                    //onSuccess(result.userId)
+                }
+                is SingInResult.UnknownError -> isError = true
+                is SingInResult.WrongPassword -> {}
+                is SingInResult.UserNotFound -> {}
+            }
+            isLoading = false
+        }
     }
-
 }

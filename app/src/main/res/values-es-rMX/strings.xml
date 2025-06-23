@@ -94,4 +94,9 @@
     <string name="change_password_visibility">Ver contraseña</string>
     <string name="unknown_error">Algo salió mal, por favor intenta de nuevo</string>
     <string name="greeting_user">Bienvenido!</string>
+    <string name="go_back">Regresar</string>
+    <string name="progress">Progreso: %d días</string>
+    <string name="look_for_an_article">Let\'s look up a new article!</string>
+    <string name="gratitude_journal">Gratitude Journal</string>
+    <string name="meditation">Meditation</string>
 </resources>
