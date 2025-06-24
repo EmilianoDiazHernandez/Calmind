@@ -71,6 +71,17 @@
         <item>Las dificultades me hacen esforzarme más.</item>
         <item>Me mantengo enfocado/a bajo presión.</item>
         <item>No me doy por vencido/a fácilmente.</item>
+        <!-- Trauma -->
+        <item>He podido darle sentido a las experiencias difíciles que he vivido.</item>
+        <item>Después de eventos traumáticos, logro encontrar formas de seguir adelante con mi vida.</item>
+        <item>He sido capaz de encontrar apoyo emocional cuando lo he necesitado.</item>
+        <item>Aunque algo me haya afectado profundamente, he logrado reconstruir mi bienestar con el tiempo.</item>
+        <item>Siento que he aprendido o crecido a raíz de experiencias difíciles.</item>
+        <item>He logrado hablar o expresar lo que sentí en momentos traumáticos.</item>
+        <item>Siento que las experiencias dolorosas no definen quién soy.</item>
+        <item>Cuando me suceden cosas muy difíciles, suelo encontrar algún tipo de esperanza o propósito.</item>
+        <item>A pesar de haber vivido eventos muy duros, confío en mi capacidad para sanar.</item>
+        <item>He podido perdonarme a mí mismo/a o a otros por lo que ocurrió.</item>
     </string-array>
 
     <!-- Toast's -->

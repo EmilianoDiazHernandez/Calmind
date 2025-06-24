@@ -69,6 +69,17 @@
         <item>How often have you felt that you could not cope with all the things you had to do?</item>
         <item>How often have you been able to control the difficulties in your life?</item>
         <item>How often have you felt that you had everything under control?</item>
+        <!-- Trauma -->
+        <item>I have been able to make sense of the difficult experiences I’ve lived through.</item>
+        <item>After traumatic events, I find ways to move forward with my life.</item>
+        <item>I have been able to find emotional support when I needed it.</item>
+        <item>Although something deeply affected me, I have managed to rebuild my well-being over time.</item>
+        <item>I feel that I have learned or grown from difficult experiences.</item>
+        <item>I have been able to talk about or express what I felt during traumatic moments.</item>
+        <item>I feel that painful experiences do not define who I am.</item>
+        <item>When very difficult things happen to me, I tend to find some kind of hope or purpose.</item>
+        <item>Despite having lived through very hard events, I trust in my ability to heal.</item>
+        <item>I have been able to forgive myself or others for what happened.</item>
     </string-array>
 
     <!-- Toast's -->

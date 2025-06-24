@@ -28,8 +28,8 @@ public class StressQuestionsViewModel extends ViewModel {
     private final MutableLiveData<String> currentQuestion = new MutableLiveData<>();
     private final MutableLiveData<Boolean> finished = new MutableLiveData<>(false);
     private Integer stress = 0; // 0-10 low | 11-25 medium | 26-30 high
-    private Integer resilience = 0; // 0-20 low | 21-30 medium | 31-40 high
-    private Integer trauma = 0; // 0–30 No TEPT | 31–33 Possible TEPT | 34: highly possibility TEPT
+    private Integer resilience = 0;
+    private Integer trauma = 0;
     public LiveData<UserData> userDataLiveData;
 
     @Inject
@@ -46,14 +46,14 @@ public class StressQuestionsViewModel extends ViewModel {
     }
 
     private TraumaResult getTraumaResult() {
-        if (trauma <= 30) return TraumaResult.NO_PTSD;
-        if (trauma <= 33) return TraumaResult.PROBABLE_PTSD;
-        return TraumaResult.HIGHLY_PROBABLE_PTSD;
+        if (trauma <= 10) return TraumaResult.LOW;
+        if (trauma <= 25) return TraumaResult.MIDDLE;
+        return TraumaResult.HIGH;
     }
 
     private ResilienceResult getResilience() {
-        if (resilience <= 20) return ResilienceResult.LOW;
-        if (resilience <= 30) return ResilienceResult.MIDDLE;
+        if (resilience <= 10) return ResilienceResult.LOW;
+        if (resilience <= 25) return ResilienceResult.MIDDLE;
         return ResilienceResult.HIGH;
     }
 

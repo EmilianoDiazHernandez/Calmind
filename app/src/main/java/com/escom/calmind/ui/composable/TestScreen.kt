@@ -70,7 +70,7 @@ private fun TestScreenPreview() {
                     TestResult(
                         StressResult.LOW,
                         ResilienceResult.LOW,
-                        TraumaResult.NO_PTSD
+                        TraumaResult.LOW
                     )
                 },
                 isTestFinished = false
