@@ -98,4 +98,7 @@
     <string name="gratitude_journal">Gratitude\nJournal</string>
     <string name="meditation">Meditation</string>
     <string name="gratitude_journal_description">Every time you write in your gratitude journal, you add to your streak of days, allowing you to unlock fun games. Gratitude is associated with increased happiness, reduced depressive symptoms, and greater overall well-being.\nFeel free to write</string>
+    <string name="how_do_you_feel">Tell me. How do you feel today?</string>
+    <string name="what_do_you_think">What do you think?</string>
+    <string name="user_exist">This user already exist, please sing in.</string>
 </resources>

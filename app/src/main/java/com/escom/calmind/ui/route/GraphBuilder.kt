@@ -1,11 +1,19 @@
 package com.escom.calmind.ui.route
 
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.VerifiedUser
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -17,7 +25,9 @@ import com.escom.calmind.R
 import com.escom.calmind.model.TestResult
 import com.escom.calmind.model.TopBarTitle
 import com.escom.calmind.ui.composable.CongratulationDialog
+import com.escom.calmind.ui.composable.GratitudeJournalScreen
 import com.escom.calmind.ui.composable.LoadingFullScreen
+import com.escom.calmind.ui.composable.LoginScreen
 import com.escom.calmind.ui.composable.MainScreen
 import com.escom.calmind.ui.composable.SplashScreen
 import com.escom.calmind.ui.composable.TestScreen
@@ -42,7 +52,7 @@ fun NavGraphBuilder.buildGraph(
                 if (isFirstTime)
                     WelcomeScreen
                 else
-                    userExist?.let { Main(it) } ?: LoginScreen()
+                    userExist?.let { Main(it) } ?: Login()
             ) {
                 popUpTo(SplashScreen) { inclusive = true }
             }
@@ -107,7 +117,7 @@ fun NavGraphBuilder.buildGraph(
                         }
                     },
                     onUserExist = { email, password ->
-                        navController.navigate(LoginScreen(email, password)) {
+                        navController.navigate(Login(email, password)) {
                             popUpTo<CongratulationDialog> { inclusive = true }
                         }
                     }
@@ -123,20 +133,37 @@ fun NavGraphBuilder.buildGraph(
             isWeakPassword = loginViewModel.isWeakPassword
         )
     }
-    composable<LoginScreen> { backStackEntry ->
-        val (email, password) = backStackEntry.toRoute<LoginScreen>()
+    composable<Login> { backStackEntry ->
+        val (email, password) = backStackEntry.toRoute<Login>()
         val loginViewModel = hiltViewModel<LoginViewModel>()
         if (email != null && password != null) {
+            var showDialog by remember { mutableStateOf(true) }
             UpdateIsFirstTime()
             loginViewModel.email = email
             loginViewModel.password = password
+            if (showDialog) {
+                AlertDialog(
+                    onDismissRequest = { showDialog = false },
+                    confirmButton = {
+                        Button(onClick = { showDialog = false }) { Text("OK") }
+                    },
+                    dismissButton = null,
+                    text = { Text(stringResource(R.string.user_exist)) },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.VerifiedUser,
+                            contentDescription = null
+                        )
+                    }
+                )
+            }
         }
-        Text("Login")
+        LoginScreen()
     }
     composable<Main> { backStackEntry ->
         UpdateIsFirstTime()
         val userId = backStackEntry.toRoute<Main>().userId
-        val mainViewModel = hiltViewModel<MainViewModel>()
+        val mainViewModel = hiltViewModel<MainViewModel>(backStackEntry)
         val currentUser by mainViewModel.currentUser.collectAsState()
         mainViewModel.retrieveUserById(userId)
         currentUser?.let {
@@ -144,15 +171,24 @@ fun NavGraphBuilder.buildGraph(
             MainScreen(
                 userData = it,
                 onClickGratitudeJournalScreen = {
-                    navController.navigate(GratitudeJournalScreen(userId))
+                    navController.navigate(GratitudeJournal(userId, it.name))
                 },
                 onClickMeditationScreen = {
-
                 }
             )
         } ?: LoadingFullScreen()
     }
-    composable<GratitudeJournalScreen> {
-        CircularProgressIndicator()
+    composable<GratitudeJournal> { backStackEntry ->
+        val (userId, username) = backStackEntry.toRoute<GratitudeJournal>()
+        onUpdateTopBar(TopBarTitle(R.string.gratitude_journal, username))
+        val mainViewModel: MainViewModel = navController.previousBackStackEntry?.let {
+            hiltViewModel(it)
+        } ?: hiltViewModel()
+        val textJournal by mainViewModel.currentTextJournal.collectAsState()
+        GratitudeJournalScreen(
+            journalText = textJournal,
+            onJournalTextChange = mainViewModel::onJournalTextChange,
+            onJournalTextSend = {}
+        )
     }
 }

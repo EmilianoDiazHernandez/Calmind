@@ -16,11 +16,17 @@ class MainViewModel @Inject constructor(private val authService: AuthService) : 
     private val _currentUser = MutableStateFlow<UserData?>(null)
     val currentUser = _currentUser.asStateFlow()
 
+    private val _currentTextJournal = MutableStateFlow(String())
+    val currentTextJournal = _currentTextJournal.asStateFlow()
+
     fun retrieveUserById(userId: String) {
         viewModelScope.launch {
             _currentUser.value = authService.retrieveUserById(userId)
         }
     }
 
+    fun onJournalTextChange(newText: String) {
+        _currentTextJournal.value = newText
+    }
 
 }
