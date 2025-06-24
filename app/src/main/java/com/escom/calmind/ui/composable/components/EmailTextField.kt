@@ -14,7 +14,8 @@ import com.escom.calmind.R
 fun EmailTextField(
     email: String,
     onEmailChange: (String) -> Unit,
-    keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+    keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+    isError: Boolean = false
 ) {
     OutlinedTextField(
         value = email, onValueChange = onEmailChange, label = {
@@ -25,6 +26,6 @@ fun EmailTextField(
         },
         keyboardOptions = keyboardOptions,
         singleLine = true,
-        isError = email.isNotBlank() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        isError = (email.isNotBlank() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) || isError
     )
 }

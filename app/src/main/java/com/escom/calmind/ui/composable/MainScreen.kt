@@ -1,5 +1,6 @@
 package com.escom.calmind.ui.composable
 
+/*import androidx.compose.material.icons.outlined.Lightbulb*/
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -14,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.BorderColor
 import androidx.compose.material.icons.outlined.FindInPage
-import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escom.calmind.R
+import com.escom.calmind.model.EmotionResponse
 import com.escom.calmind.model.UserData
 import com.escom.calmind.ui.composable.components.CardButton
 import com.escom.calmind.ui.theme.CalmindTheme
@@ -39,8 +40,8 @@ import com.escom.calmind.ui.theme.CalmindTheme
 fun MainScreen(
     modifier: Modifier = Modifier,
     userData: UserData,
-    onClickGratitudeJournalScreen: () -> Unit,
-    onClickMeditationScreen: () -> Unit
+    onClickGratitudeJournalScreen: () -> Unit
+    /*onClickMeditationScreen: () -> Unit*/
 ) {
 
     Column(
@@ -97,7 +98,7 @@ fun MainScreen(
                             textAlign = TextAlign.Center
                         )
                     }
-                    CardButton(
+                    /*CardButton(
                         modifier = Modifier.fillMaxHeight(),
                         onClick = onClickMeditationScreen,
                         imageVector = Icons.Outlined.Lightbulb,
@@ -108,7 +109,7 @@ fun MainScreen(
                             maxLines = 1,
                             textAlign = TextAlign.Center
                         )
-                    }
+                    }*/
                 }
             }
         }
@@ -130,8 +131,8 @@ fun MainScreenPreview() {
                 schooling = "Secondary School",
                 gratitudeDays = 15
             ),
-            onClickGratitudeJournalScreen = {},
-            onClickMeditationScreen = {}
+            onClickGratitudeJournalScreen = {}
+            /*onClickMeditationScreen = {}*/
         )
     }
 }

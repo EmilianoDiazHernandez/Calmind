@@ -98,9 +98,13 @@
     <string name="progress">Progreso: %d días</string>
     <string name="look_for_an_article">Let\'s look up a new article!</string>
     <string name="gratitude_journal">Diario de\nGratitud</string>
+    <string name="gratitude_journal_title">Diario de Gratitud</string>
     <string name="meditation">Meditación</string>
     <string name="gratitude_journal_description">Every time you write in your gratitude journal, you add to your streak of days, allowing you to unlock fun games. Gratitude is associated with increased happiness, reduced depressive symptoms, and greater overall well-being.\\n\nFeel free to write</string>
     <string name="how_do_you_feel">Cuéntame. ¿Cómo te sientes hoy?</string>
-    <string name="what_do_you_think">What do you think?</string>
-    <string name="user_exist">This user already exist, please sing in.</string>
+    <string name="what_do_you_think">¿Qué piensas?</string>
+    <string name="user_exist">Este usuario ya está registrado, por favor inicia sesión.</string>
+    <string name="sing_in">Iniciar sesión</string>
+    <string name="bad_credentials">Credenciales incorrectas</string>
+    <string name="detected">Emociones detectadas</string>
 </resources>

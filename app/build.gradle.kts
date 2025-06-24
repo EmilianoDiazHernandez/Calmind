@@ -84,6 +84,13 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     /*viewModelScope*/
 
+    /*ktor*/
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.client.serialization)
+    /*ktor*/
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

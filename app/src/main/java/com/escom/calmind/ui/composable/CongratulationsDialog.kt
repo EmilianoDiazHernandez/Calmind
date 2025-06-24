@@ -1,7 +1,5 @@
 package com.escom.calmind.ui.composable
 
-import android.util.Patterns
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +18,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -44,6 +41,7 @@ import com.escom.calmind.model.StressResult
 import com.escom.calmind.model.TestResult
 import com.escom.calmind.model.TraumaResult
 import com.escom.calmind.model.UserData
+import com.escom.calmind.ui.composable.components.CardGenericError
 import com.escom.calmind.ui.composable.components.EmailTextField
 import com.escom.calmind.ui.composable.components.PagerLabel
 import com.escom.calmind.ui.composable.components.PasswordTextField
@@ -61,6 +59,7 @@ fun CongratulationDialog(
     onPasswordChange: (String) -> Unit,
     isLoading: Boolean,
     isError: Boolean,
+    isAbleToSend: Boolean,
     isWeakPassword: Boolean
 ) {
     Column {
@@ -169,32 +168,29 @@ fun CongratulationDialog(
                                 ),
                                 keyboardActions = KeyboardActions(
                                     onSend = {
-                                        if (Patterns.EMAIL_ADDRESS.matcher(email)
-                                                .matches() && password.isNotBlank()
-                                            && password.length >= 8
-                                        )
+                                        if (isAbleToSend && !isLoading) {
                                             keyboardController?.hide()
-                                        onConfirmDialog()
+                                            onConfirmDialog()
+                                        }
                                     }
                                 ),
                                 isError = isWeakPassword
                             )
                             Button(
-                                onClick = onConfirmDialog,
+                                onClick = { keyboardController?.hide(); onConfirmDialog() },
                                 modifier = Modifier.padding(16.dp),
-                                enabled = Patterns.EMAIL_ADDRESS.matcher(email)
-                                    .matches() && password.isNotBlank() && password.length >= 8
-                                        && !isLoading
+                                enabled = isAbleToSend && !isLoading
                             ) {
                                 if (!isLoading)
                                     Text(text = stringResource(R.string.go))
                                 else
                                     CircularProgressIndicator()
                             }
-                            AnimatedVisibility(isError) {
-                                OutlinedCard {
-                                    Text(stringResource(R.string.unknown_error))
-                                }
+                            CardGenericError(visible = isError) {
+                                Text(
+                                    text = stringResource(R.string.unknown_error),
+                                    modifier = Modifier.padding(16.dp)
+                                )
                             }
                         }
 
@@ -221,11 +217,11 @@ private fun DialogPreview0() {
     CalmindTheme {
         CongratulationDialog(
             testResult =
-                TestResult(
-                    StressResult.LOW,
-                    ResilienceResult.LOW,
-                    TraumaResult.NO_PTSD
-                ),
+            TestResult(
+                StressResult.LOW,
+                ResilienceResult.LOW,
+                TraumaResult.NO_PTSD
+            ),
             currentUser = UserData("Diego", 13, emptyList(), "High School"),
             onConfirmDialog = {},
             pageState = pageState,
@@ -235,7 +231,8 @@ private fun DialogPreview0() {
             onPasswordChange = {},
             isLoading = false,
             isError = false,
-            isWeakPassword = false
+            isWeakPassword = false,
+            isAbleToSend = true
         )
     }
 }
@@ -247,11 +244,11 @@ private fun DialogPreview() {
     CalmindTheme {
         CongratulationDialog(
             testResult =
-                TestResult(
-                    StressResult.LOW,
-                    ResilienceResult.LOW,
-                    TraumaResult.NO_PTSD
-                ),
+            TestResult(
+                StressResult.LOW,
+                ResilienceResult.LOW,
+                TraumaResult.NO_PTSD
+            ),
             currentUser = UserData("Diego", 13, emptyList(), "High School"),
             onConfirmDialog = {},
             pageState = pageState,
@@ -261,7 +258,8 @@ private fun DialogPreview() {
             onPasswordChange = {},
             isLoading = false,
             isError = false,
-            isWeakPassword = false
+            isWeakPassword = false,
+            isAbleToSend = true
         )
     }
 }
@@ -273,11 +271,11 @@ private fun DialogPreview2() {
     CalmindTheme {
         CongratulationDialog(
             testResult =
-                TestResult(
-                    StressResult.LOW,
-                    ResilienceResult.MIDDLE,
-                    TraumaResult.NO_PTSD
-                ),
+            TestResult(
+                StressResult.LOW,
+                ResilienceResult.MIDDLE,
+                TraumaResult.NO_PTSD
+            ),
             currentUser = UserData("Diego", 13, emptyList(), "High School"),
             onConfirmDialog = {},
             pageState = pageState,
@@ -287,7 +285,8 @@ private fun DialogPreview2() {
             onPasswordChange = {},
             isLoading = false,
             isError = false,
-            isWeakPassword = false
+            isWeakPassword = false,
+            isAbleToSend = true
         )
     }
 }
@@ -299,11 +298,11 @@ private fun DialogPreview3() {
     CalmindTheme {
         CongratulationDialog(
             testResult =
-                TestResult(
-                    StressResult.LOW,
-                    ResilienceResult.MIDDLE,
-                    TraumaResult.NO_PTSD
-                ),
+            TestResult(
+                StressResult.LOW,
+                ResilienceResult.MIDDLE,
+                TraumaResult.NO_PTSD
+            ),
             currentUser = UserData("Diego", 13, emptyList(), "High School"),
             onConfirmDialog = {},
             pageState = pageState,
@@ -313,7 +312,8 @@ private fun DialogPreview3() {
             onPasswordChange = {},
             isLoading = false,
             isError = false,
-            isWeakPassword = false
+            isWeakPassword = false,
+            isAbleToSend = true
         )
     }
 }
@@ -325,11 +325,11 @@ private fun DialogPreview4() {
     CalmindTheme {
         CongratulationDialog(
             testResult =
-                TestResult(
-                    StressResult.LOW,
-                    ResilienceResult.MIDDLE,
-                    TraumaResult.NO_PTSD
-                ),
+            TestResult(
+                StressResult.LOW,
+                ResilienceResult.MIDDLE,
+                TraumaResult.NO_PTSD
+            ),
             currentUser = UserData("Diego", 13, emptyList(), "High School"),
             onConfirmDialog = {},
             pageState = pageState,
@@ -339,7 +339,35 @@ private fun DialogPreview4() {
             onPasswordChange = {},
             isLoading = false,
             isError = false,
-            isWeakPassword = false
+            isWeakPassword = false,
+            isAbleToSend = true
+        )
+    }
+}
+
+@Preview(name = "Dialog - page 5", group = "Dialog")
+@Composable
+private fun DialogPreview5() {
+    val pageState = rememberPagerState(initialPage = 4, pageCount = { 5 })
+    CalmindTheme {
+        CongratulationDialog(
+            testResult =
+            TestResult(
+                StressResult.LOW,
+                ResilienceResult.MIDDLE,
+                TraumaResult.NO_PTSD
+            ),
+            currentUser = UserData("Diego", 13, emptyList(), "High School"),
+            onConfirmDialog = {},
+            pageState = pageState,
+            email = "this is not an email",
+            onEmailChange = {},
+            password = "12345678",
+            onPasswordChange = {},
+            isLoading = false,
+            isError = true,
+            isWeakPassword = false,
+            isAbleToSend = true
         )
     }
 }

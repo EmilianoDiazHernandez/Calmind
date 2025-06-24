@@ -133,61 +133,6 @@
             android:orientation="vertical"
             android:layout_weight="2">
 
-            <!--<LinearLayout
-                android:layout_marginTop="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/journal_footer"
-                    android:layout_marginEnd="10dp"
-                    android:textColor="@color/orange_3"
-                    android:fontFamily="@font/fredoka_semi_bold"
-                    android:textSize="@dimen/text_size_xsmall"
-                    />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_star_svgrepo_com"
-                    android:contentDescription="@null"
-                    />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_star_svgrepo_com"
-                    android:contentDescription="@null"
-                    />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_star_svgrepo_com"
-                    android:contentDescription="@null"
-                    />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_star_svgrepo_com"
-                    android:contentDescription="@null"
-                    />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_star_svgrepo_com"
-                    android:contentDescription="@null"
-                    />
-
-            </LinearLayout>-->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

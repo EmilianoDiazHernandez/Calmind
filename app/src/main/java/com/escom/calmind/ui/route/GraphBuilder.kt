@@ -1,5 +1,6 @@
 package com.escom.calmind.ui.route
 
+import android.util.Patterns
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.VerifiedUser
@@ -130,7 +131,11 @@ fun NavGraphBuilder.buildGraph(
             onPasswordChange = loginViewModel::password::set,
             isLoading = loginViewModel.isLoading,
             isError = loginViewModel.isError,
-            isWeakPassword = loginViewModel.isWeakPassword
+            isWeakPassword = loginViewModel.isWeakPassword,
+            isAbleToSend = with(loginViewModel) {
+                Patterns.EMAIL_ADDRESS.matcher(email)
+                    .matches() && password.isNotBlank() && password.length >= 8
+            }
         )
     }
     composable<Login> { backStackEntry ->
@@ -158,7 +163,26 @@ fun NavGraphBuilder.buildGraph(
                 )
             }
         }
-        LoginScreen()
+        LoginScreen(
+            isLoading = loginViewModel.isLoading,
+            email = loginViewModel.email,
+            onEmailChange = loginViewModel::email::set,
+            password = loginViewModel.password,
+            onPasswordChange = loginViewModel::password::set,
+            onLogin = {
+                loginViewModel.singIn(
+                    onSuccess = {
+                        navController.navigate(Main(it)) {
+                            popUpTo<Login> {
+                                inclusive = true
+                            }
+                        }
+                    }
+                )
+            },
+            isError = loginViewModel.isError,
+            badCredentials = loginViewModel.badCredentials
+        )
     }
     composable<Main> { backStackEntry ->
         UpdateIsFirstTime()
@@ -172,23 +196,28 @@ fun NavGraphBuilder.buildGraph(
                 userData = it,
                 onClickGratitudeJournalScreen = {
                     navController.navigate(GratitudeJournal(userId, it.name))
-                },
+                }/*,
                 onClickMeditationScreen = {
-                }
+                }*/
             )
         } ?: LoadingFullScreen()
     }
     composable<GratitudeJournal> { backStackEntry ->
         val (userId, username) = backStackEntry.toRoute<GratitudeJournal>()
-        onUpdateTopBar(TopBarTitle(R.string.gratitude_journal, username))
+        onUpdateTopBar(TopBarTitle(R.string.gratitude_journal_title, username))
         val mainViewModel: MainViewModel = navController.previousBackStackEntry?.let {
             hiltViewModel(it)
         } ?: hiltViewModel()
         val textJournal by mainViewModel.currentTextJournal.collectAsState()
+        val emotions by mainViewModel.emotions.collectAsState()
+        val isLoading by mainViewModel.isLoading.collectAsState()
         GratitudeJournalScreen(
             journalText = textJournal,
             onJournalTextChange = mainViewModel::onJournalTextChange,
-            onJournalTextSend = {}
+            onJournalTextSend = { mainViewModel.saveGratitudeJournal(userId) },
+            emotions = emotions,
+            onAcceptEmotionsDialog = mainViewModel::clearEmotions,
+            isLoading = isLoading
         )
     }
 }

@@ -35,7 +35,11 @@ class MainActivity : ComponentActivity() {
                         title?.let {
                             RouteTopAppBar(
                                 title = it,
-                                onNavigateBack = { navController.popBackStack() }
+                                onNavigateBack = {
+                                    if (!navController.popBackStack()) {
+                                        finish()
+                                    }
+                                }
                             )
                         }
                     }

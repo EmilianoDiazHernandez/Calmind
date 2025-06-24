@@ -43,7 +43,7 @@ class FirebaseAuthService @Inject constructor(
         } catch (e: FirebaseAuthException) {
             when (e.errorCode) {
                 "ERROR_USER_NOT_FOUND" -> SingInResult.UserNotFound(email)
-                "ERROR_WRONG_PASSWORD" -> SingInResult.WrongPassword
+                "ERROR_INVALID_CREDENTIAL" -> SingInResult.InvalidCredential
                 else -> SingInResult.UnknownError
             }
         }
